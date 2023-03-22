@@ -11,10 +11,10 @@ using System.Windows.Forms;
 
 namespace IMAVD_IMAGEM
 {
-    public partial class appWindow : Form
+    public partial class mainAppWindow : Form
     {
 
-        public appWindow()
+        public mainAppWindow()
         {
             InitializeComponent();
         }
@@ -48,6 +48,12 @@ namespace IMAVD_IMAGEM
         private void exitButton_Click(object sender, EventArgs e)
         {
             this.Close();
+        }
+
+        private void imageInformationButton_Click(object sender, EventArgs e)
+        {
+            ImageInformationWindow informationWindow = new ImageInformationWindow();
+            informationWindow.Show();
         }
     }
 }

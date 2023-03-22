@@ -1,6 +1,6 @@
 ﻿namespace IMAVD_IMAGEM
 {
-    partial class appWindow
+    partial class mainAppWindow
     {
         /// <summary>
         /// Required designer variable.
@@ -30,6 +30,7 @@
         {
             this.exitButton = new System.Windows.Forms.Button();
             this.loadImageButton = new System.Windows.Forms.Button();
+            this.imageInformationButton = new System.Windows.Forms.Button();
             this.SuspendLayout();
             // 
             // exitButton
@@ -52,15 +53,27 @@
             this.loadImageButton.UseVisualStyleBackColor = true;
             this.loadImageButton.Click += new System.EventHandler(this.loadImageButton_Click);
             // 
-            // appWindow
+            // imageInformationButton
+            // 
+            this.imageInformationButton.Location = new System.Drawing.Point(71, 112);
+            this.imageInformationButton.Name = "imageInformationButton";
+            this.imageInformationButton.Size = new System.Drawing.Size(84, 40);
+            this.imageInformationButton.TabIndex = 2;
+            this.imageInformationButton.Text = "Image Information";
+            this.imageInformationButton.UseVisualStyleBackColor = true;
+            this.imageInformationButton.Click += new System.EventHandler(this.imageInformationButton_Click);
+            // 
+            // mainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(800, 450);
+            this.Controls.Add(this.imageInformationButton);
             this.Controls.Add(this.loadImageButton);
             this.Controls.Add(this.exitButton);
-            this.Name = "appWindow";
-            this.Text = "IMAVD IMAGEM";
+            this.Name = "mainAppWindow";
+            this.Text = "Photostore";
             this.ResumeLayout(false);
 
         }
@@ -69,6 +82,7 @@
 
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button loadImageButton;
+        private System.Windows.Forms.Button imageInformationButton;
     }
 }
 
