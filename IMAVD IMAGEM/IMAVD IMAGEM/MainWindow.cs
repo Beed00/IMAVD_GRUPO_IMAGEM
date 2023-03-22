@@ -15,6 +15,7 @@ namespace IMAVD_IMAGEM
     public partial class mainAppWindow : Form
     {
 
+        Color chosenColor;
         public mainAppWindow()
         {
             InitializeComponent();
@@ -62,5 +63,39 @@ namespace IMAVD_IMAGEM
             ImageInformationWindow informationWindow = new ImageInformationWindow();
             informationWindow.Show();
         }
+
+        private void searchColourButton_Click(object sender, EventArgs e)
+        {
+                try
+                {
+                    chosenColourLabel.Text = "";
+                    chosenColourPanel.BackColor = chosenColor;
+
+                    DialogResult IsColorChosen = colorDialog.ShowDialog();
+
+                    if (IsColorChosen == System.Windows.Forms.DialogResult.OK)
+                    {
+                        chosenColourPanel.BackColor = colorDialog.Color;
+                        if (colorDialog.Color.IsKnownColor == true)
+                        {
+                            chosenColourLabel.Text = colorDialog.Color.ToKnownColor().ToString();
+                        }
+                    }
+                }
+                catch (Exception exc)
+                {
+                    MessageBox.Show(exc.Message);
+                }
+            }
+
+        private void chosenColourPanel_Paint(object sender, PaintEventArgs e)
+        {
+
+        }
+
+        private void chosenColourLabel_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-}
+    }
