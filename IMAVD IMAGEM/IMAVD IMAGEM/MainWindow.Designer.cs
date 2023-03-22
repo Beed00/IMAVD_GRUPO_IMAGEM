@@ -29,15 +29,12 @@
         private void InitializeComponent()
         {
             this.exitButton = new System.Windows.Forms.Button();
-<<<<<<< HEAD
             this.imageInformationButton = new System.Windows.Forms.Button();
             this.pbox = new System.Windows.Forms.PictureBox();
             this.searchColourButton = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.chosenColourPanel = new System.Windows.Forms.Panel();
             this.chosenColourLabel = new System.Windows.Forms.Label();
-=======
->>>>>>> d61af58d6cada05488ef803b075302dc01be7e35
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -66,7 +63,6 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-<<<<<<< HEAD
             // imageInformationButton
             // 
             this.imageInformationButton.Location = new System.Drawing.Point(71, 112);
@@ -118,8 +114,6 @@
             this.chosenColourLabel.Click += new System.EventHandler(this.chosenColourLabel_Click);
             // 
             // mainAppWindow
-=======
->>>>>>> d61af58d6cada05488ef803b075302dc01be7e35
             // menuStrip1
             // 
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
