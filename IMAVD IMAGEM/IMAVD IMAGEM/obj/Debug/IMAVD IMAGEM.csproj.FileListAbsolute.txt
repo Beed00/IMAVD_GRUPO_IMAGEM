@@ -1,0 +1,11 @@
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\bin\Debug\IMAVD IMAGEM.exe.config
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\bin\Debug\IMAVD IMAGEM.exe
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\bin\Debug\IMAVD IMAGEM.pdb
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.csproj.AssemblyReference.cache
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.csproj.SuggestedBindingRedirects.cache
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD_IMAGEM.appWindow.resources
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD_IMAGEM.Properties.Resources.resources
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.csproj.GenerateResource.cache
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.csproj.CoreCompileInputs.cache
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.exe
+C:\Users\bmonteiro\OneDrive - Hitachi Solutions\Documents\IMAVD_GRUPO_IMAGEM\IMAVD IMAGEM\IMAVD IMAGEM\obj\Debug\IMAVD IMAGEM.pdb
