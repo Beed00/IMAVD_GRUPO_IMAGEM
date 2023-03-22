@@ -79,9 +79,9 @@ namespace IMAVD_IMAGEM
                     image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
-        }
+        }        
 
-        private void imageInformationButton_Click(object sender, EventArgs e)
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
             FileInfo info = new FileInfo(filePath);
             string imageName = info.Name;
@@ -91,14 +91,8 @@ namespace IMAVD_IMAGEM
             string imageSize = info.Length + " bytes";
             string imageCreation = info.CreationTime.ToString();
 
-            ImageInformationWindow informationWindow = new ImageInformationWindow(imageName,imageExtension,imageLocation,
+            ImageInformationWindow informationWindow = new ImageInformationWindow(imageName, imageExtension, imageLocation,
                 imageDimension, imageSize, imageCreation);
-            informationWindow.Show();
-        }
-
-        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
-        {
-            ImageInformationWindow informationWindow = new ImageInformationWindow();
             informationWindow.Show();
         }
     }

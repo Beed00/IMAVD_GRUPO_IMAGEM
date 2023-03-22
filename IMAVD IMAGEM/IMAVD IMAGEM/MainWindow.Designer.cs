@@ -29,7 +29,6 @@
         private void InitializeComponent()
         {
             this.exitButton = new System.Windows.Forms.Button();
-            this.imageInformationButton = new System.Windows.Forms.Button();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -58,17 +57,6 @@
             this.exitButton.UseVisualStyleBackColor = true;
             this.exitButton.Click += new System.EventHandler(this.exitButton_Click);
             // 
-            // imageInformationButton
-            // 
-            this.imageInformationButton.Location = new System.Drawing.Point(71, 112);
-            this.imageInformationButton.Margin = new System.Windows.Forms.Padding(8, 7, 8, 7);
-            this.imageInformationButton.Name = "imageInformationButton";
-            this.imageInformationButton.Size = new System.Drawing.Size(190, 98);
-            this.imageInformationButton.TabIndex = 2;
-            this.imageInformationButton.Text = "Image Information";
-            this.imageInformationButton.UseVisualStyleBackColor = true;
-            this.imageInformationButton.Click += new System.EventHandler(this.imageInformationButton_Click);
-            // 
             // menuStrip1
             // 
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
@@ -81,7 +69,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1557, 60);
+            this.menuStrip1.Size = new System.Drawing.Size(1557, 49);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -169,7 +157,6 @@
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
             this.ClientSize = new System.Drawing.Size(1557, 861);
-            this.Controls.Add(this.imageInformationButton);
             this.Controls.Add(this.pbox);
             this.Controls.Add(this.exitButton);
             this.Controls.Add(this.menuStrip1);
@@ -189,7 +176,6 @@
         #endregion
 
         private System.Windows.Forms.Button exitButton;
-        private System.Windows.Forms.Button imageInformationButton;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
