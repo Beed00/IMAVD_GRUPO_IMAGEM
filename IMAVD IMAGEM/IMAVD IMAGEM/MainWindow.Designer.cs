@@ -30,7 +30,6 @@
         {
             this.exitButton = new System.Windows.Forms.Button();
             this.imageInformationButton = new System.Windows.Forms.Button();
-            this.pbox = new System.Windows.Forms.PictureBox();
             this.menuStrip1 = new System.Windows.Forms.MenuStrip();
             this.fileToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.loadToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -40,14 +39,17 @@
             this.editToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
+            this.informationToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator2 = new System.Windows.Forms.ToolStripSeparator();
+            this.pbox = new System.Windows.Forms.PictureBox();
             this.menuStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
             // 
             this.exitButton.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Right)));
-            this.exitButton.Location = new System.Drawing.Point(1397, 5);
+            this.exitButton.Location = new System.Drawing.Point(1384, 4);
             this.exitButton.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
             this.exitButton.Name = "exitButton";
             this.exitButton.Size = new System.Drawing.Size(149, 45);
@@ -67,17 +69,6 @@
             this.imageInformationButton.UseVisualStyleBackColor = true;
             this.imageInformationButton.Click += new System.EventHandler(this.imageInformationButton_Click);
             // 
-            // pbox
-            // 
-            this.pbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pbox.Location = new System.Drawing.Point(16, 62);
-            this.pbox.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
-            this.pbox.Name = "pbox";
-            this.pbox.Size = new System.Drawing.Size(1531, 789);
-            this.pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
-            this.pbox.TabIndex = 2;
-            this.pbox.TabStop = false;
-            // 
             // menuStrip1
             // 
             this.menuStrip1.GripMargin = new System.Windows.Forms.Padding(2, 2, 0, 2);
@@ -90,7 +81,7 @@
             this.menuStrip1.Location = new System.Drawing.Point(0, 0);
             this.menuStrip1.Name = "menuStrip1";
             this.menuStrip1.Padding = new System.Windows.Forms.Padding(5, 2, 0, 2);
-            this.menuStrip1.Size = new System.Drawing.Size(1557, 49);
+            this.menuStrip1.Size = new System.Drawing.Size(1557, 60);
             this.menuStrip1.TabIndex = 3;
             this.menuStrip1.Text = "menuStrip1";
             // 
@@ -100,9 +91,11 @@
             this.loadToolStripMenuItem,
             this.toolStripSeparator1,
             this.saveToolStripMenuItem,
-            this.saveAsToolStripMenuItem});
+            this.saveAsToolStripMenuItem,
+            this.toolStripSeparator2,
+            this.informationToolStripMenuItem});
             this.fileToolStripMenuItem.Name = "fileToolStripMenuItem";
-            this.fileToolStripMenuItem.Size = new System.Drawing.Size(87, 45);
+            this.fileToolStripMenuItem.Size = new System.Drawing.Size(87, 48);
             this.fileToolStripMenuItem.Text = "File";
             // 
             // loadToolStripMenuItem
@@ -148,6 +141,28 @@
             this.colorToolStripMenuItem.Size = new System.Drawing.Size(114, 45);
             this.colorToolStripMenuItem.Text = "Color";
             // 
+            // informationToolStripMenuItem
+            // 
+            this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(448, 54);
+            this.informationToolStripMenuItem.Text = "Information";
+            this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
+            // 
+            // toolStripSeparator2
+            // 
+            this.toolStripSeparator2.Name = "toolStripSeparator2";
+            this.toolStripSeparator2.Size = new System.Drawing.Size(445, 6);
+            // 
+            // pbox
+            // 
+            this.pbox.Location = new System.Drawing.Point(16, 62);
+            this.pbox.Margin = new System.Windows.Forms.Padding(5, 7, 5, 7);
+            this.pbox.Name = "pbox";
+            this.pbox.Size = new System.Drawing.Size(1531, 789);
+            this.pbox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.CenterImage;
+            this.pbox.TabIndex = 2;
+            this.pbox.TabStop = false;
+            // 
             // mainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
@@ -163,9 +178,9 @@
             this.MinimumSize = new System.Drawing.Size(747, 355);
             this.Name = "mainAppWindow";
             this.Text = "Photostore";
-            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -175,7 +190,6 @@
 
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button imageInformationButton;
-        private System.Windows.Forms.PictureBox pbox;
         private System.Windows.Forms.MenuStrip menuStrip1;
         private System.Windows.Forms.ToolStripMenuItem editToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem viewToolStripMenuItem;
@@ -185,6 +199,9 @@
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator1;
         private System.Windows.Forms.ToolStripMenuItem saveToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
+        private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
+        private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
+        private System.Windows.Forms.PictureBox pbox;
     }
 }
 

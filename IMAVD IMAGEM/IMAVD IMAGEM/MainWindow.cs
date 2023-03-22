@@ -85,5 +85,11 @@ namespace IMAVD_IMAGEM
             ImageInformationWindow informationWindow = new ImageInformationWindow();
             informationWindow.Show();
         }
+
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            ImageInformationWindow informationWindow = new ImageInformationWindow();
+            informationWindow.Show();
+        }
     }
 }
