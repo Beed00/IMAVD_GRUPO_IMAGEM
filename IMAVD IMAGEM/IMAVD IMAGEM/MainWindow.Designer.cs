@@ -31,6 +31,8 @@
             this.exitButton = new System.Windows.Forms.Button();
             this.loadImageButton = new System.Windows.Forms.Button();
             this.imageInformationButton = new System.Windows.Forms.Button();
+            this.pbox = new System.Windows.Forms.PictureBox();
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -64,6 +66,15 @@
             this.imageInformationButton.Click += new System.EventHandler(this.imageInformationButton_Click);
             // 
             // mainAppWindow
+            // pbox
+            // 
+            this.pbox.Location = new System.Drawing.Point(41, 27);
+            this.pbox.Name = "pbox";
+            this.pbox.Size = new System.Drawing.Size(401, 295);
+            this.pbox.TabIndex = 2;
+            this.pbox.TabStop = false;
+            // 
+            // appWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
@@ -74,6 +85,12 @@
             this.Controls.Add(this.exitButton);
             this.Name = "mainAppWindow";
             this.Text = "Photostore";
+            this.Controls.Add(this.pbox);
+            this.Controls.Add(this.loadImageButton);
+            this.Controls.Add(this.exitButton);
+            this.Name = "appWindow";
+            this.Text = "IMAVD IMAGEM";
+            ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -83,6 +100,7 @@
         private System.Windows.Forms.Button exitButton;
         private System.Windows.Forms.Button loadImageButton;
         private System.Windows.Forms.Button imageInformationButton;
+        private System.Windows.Forms.PictureBox pbox;
     }
 }
 

@@ -43,6 +43,12 @@ namespace IMAVD_IMAGEM
 
             //"C:/Users/emonteiro/OneDrive - Hitachi Solutions/Desktop/Mestrado ISEP/1ano/2semestre/COSIG/Test_Scene_1.txt";
             string filePath = openFileDialog.FileName;
+
+            Image image = Image.FromFile(filePath);
+
+            pbox.SizeMode = PictureBoxSizeMode.StretchImage;
+            pbox.Image = image;
+
         }
 
         private void exitButton_Click(object sender, EventArgs e)
