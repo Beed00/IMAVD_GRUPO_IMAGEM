@@ -14,14 +14,28 @@ namespace IMAVD_IMAGEM
 {
     public partial class mainAppWindow : Form
     {
+        Image image;
+
 
         Color chosenColor;
         public mainAppWindow()
         {
             InitializeComponent();
+            
         }
 
         private void loadImageButton_Click(object sender, EventArgs e)
+        {
+            
+
+        }
+
+        private void exitButton_Click(object sender, EventArgs e)
+        {
+            this.Close();
+        }
+
+        private void loadToolStripMenuItem_Click(object sender, EventArgs e)
         {
             int size = -1;
             OpenFileDialog openFileDialog = new OpenFileDialog();
@@ -46,16 +60,25 @@ namespace IMAVD_IMAGEM
             //"C:/Users/emonteiro/OneDrive - Hitachi Solutions/Desktop/Mestrado ISEP/1ano/2semestre/COSIG/Test_Scene_1.txt";
             string filePath = openFileDialog.FileName;
 
-            Image image = Image.FromFile(filePath);
+            image = Image.FromFile(filePath);
 
             pbox.SizeMode = PictureBoxSizeMode.StretchImage;
             pbox.Image = image;
-
         }
 
-        private void exitButton_Click(object sender, EventArgs e)
+        private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            this.Close();
+            SaveFileDialog dialog = new SaveFileDialog();
+            if (dialog.ShowDialog() == DialogResult.OK)
+            {
+                int width = Convert.ToInt32(image.Width);
+                int height = Convert.ToInt32(image.Height);
+                using (Bitmap bmp = new Bitmap(width, height))
+                {
+                    //image..DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
+                    image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
+                }
+            }
         }
 
         private void imageInformationButton_Click(object sender, EventArgs e)
