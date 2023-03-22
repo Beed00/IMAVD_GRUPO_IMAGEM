@@ -12,9 +12,18 @@ namespace IMAVD_IMAGEM
 {
     public partial class ImageInformationWindow : Form
     {
-        public ImageInformationWindow()
+        public ImageInformationWindow(string imageName, string imageExtension, string imageLocation,
+                string imageDimension, string imageSize, string imageCreation)
         {
             InitializeComponent();
+
+            this.imageNameField.Text = imageName;
+            this.imageExtensionField.Text = imageExtension;
+            this.imageLocationField.Text = imageLocation;
+            this.imageDimensionField.Text = imageDimension;
+            this.imageSizeField.Text = imageSize;
+            this.imageCreatedOnField.Text = imageCreation;
+
         }
 
         private void imageNameField_Click(object sender, EventArgs e)

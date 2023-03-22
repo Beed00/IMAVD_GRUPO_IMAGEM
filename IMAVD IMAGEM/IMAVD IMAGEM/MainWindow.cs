@@ -16,6 +16,7 @@ namespace IMAVD_IMAGEM
     {
         Image image;
 
+        string filePath;
 
         Color chosenColor;
         public mainAppWindow()
@@ -58,7 +59,7 @@ namespace IMAVD_IMAGEM
             Console.WriteLine("FilePath: " + openFileDialog.FileName);
 
             //"C:/Users/emonteiro/OneDrive - Hitachi Solutions/Desktop/Mestrado ISEP/1ano/2semestre/COSIG/Test_Scene_1.txt";
-            string filePath = openFileDialog.FileName;
+            filePath = openFileDialog.FileName;
 
             image = Image.FromFile(filePath);
 
@@ -79,11 +80,20 @@ namespace IMAVD_IMAGEM
                     image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
-        }
+        }        
 
-        private void imageInformationButton_Click(object sender, EventArgs e)
+        private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            ImageInformationWindow informationWindow = new ImageInformationWindow();
+            FileInfo info = new FileInfo(filePath);
+            string imageName = info.Name;
+            string imageExtension = info.Extension;
+            string imageLocation = filePath;
+            string imageDimension = "" + image.Width + "x" + image.Height;
+            string imageSize = info.Length + " bytes";
+            string imageCreation = info.CreationTime.ToString();
+
+            ImageInformationWindow informationWindow = new ImageInformationWindow(imageName, imageExtension, imageLocation,
+                imageDimension, imageSize, imageCreation);
             informationWindow.Show();
         }
 
