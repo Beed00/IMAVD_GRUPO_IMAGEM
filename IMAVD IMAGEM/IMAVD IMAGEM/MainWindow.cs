@@ -12,10 +12,12 @@ using System.Windows.Forms;
 
 namespace IMAVD_IMAGEM
 {
-    public partial class appWindow : Form
+    public partial class mainAppWindow : Form
     {
         Image image;
-        public appWindow()
+
+
+        public mainAppWindow()
         {
             InitializeComponent();
             
@@ -76,6 +78,12 @@ namespace IMAVD_IMAGEM
                     image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
+        }
+
+        private void imageInformationButton_Click(object sender, EventArgs e)
+        {
+            ImageInformationWindow informationWindow = new ImageInformationWindow();
+            informationWindow.Show();
         }
     }
 }
