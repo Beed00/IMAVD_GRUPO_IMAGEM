@@ -30,7 +30,6 @@
         {
             this.exitButton = new System.Windows.Forms.Button();
             this.imageInformationButton = new System.Windows.Forms.Button();
-            this.pbox = new System.Windows.Forms.PictureBox();
             this.searchColourButton = new System.Windows.Forms.Button();
             this.colorDialog = new System.Windows.Forms.ColorDialog();
             this.chosenColourPanel = new System.Windows.Forms.Panel();
@@ -72,7 +71,7 @@
             this.imageInformationButton.TabIndex = 2;
             this.imageInformationButton.Text = "Image Information";
             this.imageInformationButton.UseVisualStyleBackColor = true;
-            this.imageInformationButton.Click += new System.EventHandler(this.imageInformationButton_Click);
+            this.imageInformationButton.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
             // 
             // pbox
             // 
@@ -219,7 +218,6 @@
             this.Controls.Add(this.searchColourButton);
             this.Controls.Add(this.imageInformationButton);
             this.Controls.Add(this.pbox);
-            this.Controls.Add(this.loadImageButton);
             this.Controls.Add(this.exitButton);
             this.Name = "mainAppWindow";
             this.Text = "IMAVD IMAGEM";
@@ -260,7 +258,6 @@
         private System.Windows.Forms.ToolStripMenuItem saveAsToolStripMenuItem;
         private System.Windows.Forms.ToolStripSeparator toolStripSeparator2;
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
-        private System.Windows.Forms.PictureBox pbox;
     }
 }
 
