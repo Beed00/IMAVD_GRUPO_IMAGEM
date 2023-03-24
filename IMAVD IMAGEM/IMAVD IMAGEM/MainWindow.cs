@@ -19,6 +19,8 @@ namespace IMAVD_IMAGEM
         string filePath;
 
         Color chosenColor;
+
+        bool pickColorEvent = false;
         public mainAppWindow()
         {
             InitializeComponent();
@@ -129,7 +131,7 @@ namespace IMAVD_IMAGEM
                     if (colorDialog.Color.IsKnownColor == true)
                     {
                         chosenColourLabel.Text = colorDialog.Color.ToKnownColor().ToString();
-                        detectChosenColorInImage();
+                        detectChosenColorInImage(colorDialog.Color);
                     }
                 }
             }
@@ -139,7 +141,7 @@ namespace IMAVD_IMAGEM
             }
         }
 
-        private void detectChosenColorInImage()
+        private void detectChosenColorInImage(Color selectedColor)
         {
             try
             {
@@ -155,7 +157,7 @@ namespace IMAVD_IMAGEM
                         for (int j = 0; j < pbox.Image.Width; j++)
                         {
                             Color instanceColor = bitmap.GetPixel(j, i);
-                            if (instanceColor.ToArgb() == colorDialog.Color.ToArgb())
+                            if (instanceColor.ToArgb() == selectedColor.ToArgb())
                             {
                                 IsColorFound = true;
                                 colorCounter = colorCounter + 1;
@@ -191,7 +193,30 @@ namespace IMAVD_IMAGEM
 
         private void pickColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            if (pbox.Image != null)
+            {
+                pickColorEvent = true;
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
 
+        private void pbox_Click(object sender, EventArgs e)
+        {
+            if (pickColorEvent)
+            {
+                MouseEventArgs mouse = e as MouseEventArgs;
+                Bitmap b = ((Bitmap)pbox.Image);
+                int x = mouse.X * b.Width / pbox.ClientSize.Width;
+                int y = mouse.Y * b.Height / pbox.ClientSize.Height;
+                Color pickedColor = b.GetPixel(x, y);
+
+                pickColorEvent = false;
+
+                detectChosenColorInImage(pickedColor);
+            }
         }
     }
 }
