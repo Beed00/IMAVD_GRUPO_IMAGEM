@@ -148,6 +148,7 @@ namespace IMAVD_IMAGEM
                 if (pbox.Image != null)
                 {
                     Bitmap bitmap = new Bitmap(pbox.Image);
+                    long colorCounter = 0;
 
                     for (int i = 0; i < pbox.Image.Height; i++)
                     {
@@ -157,14 +158,19 @@ namespace IMAVD_IMAGEM
                             if (instanceColor.ToArgb() == colorDialog.Color.ToArgb())
                             {
                                 IsColorFound = true;
-                                MessageBox.Show("Color has been found.");
-                                break;
+                                colorCounter = colorCounter + 1;
                             }
                         }
+                        /*
                         if (IsColorFound == true)
                         {
                             break;
                         }
+                        */
+                    }
+                    if (IsColorFound == true)
+                    {
+                        MessageBox.Show("Color has been found. Number of pixels of this color in the image is: " + colorCounter + " px");
                     }
 
                     if (IsColorFound == false)
