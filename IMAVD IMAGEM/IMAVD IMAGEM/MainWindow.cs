@@ -22,12 +22,12 @@ namespace IMAVD_IMAGEM
         public mainAppWindow()
         {
             InitializeComponent();
-            
+
         }
 
         private void loadImageButton_Click(object sender, EventArgs e)
         {
-            
+
 
         }
 
@@ -80,46 +80,29 @@ namespace IMAVD_IMAGEM
                     image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
-        }        
+        }
 
         private void informationToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            FileInfo info = new FileInfo(filePath);
-            string imageName = info.Name;
-            string imageExtension = info.Extension;
-            string imageLocation = filePath;
-            string imageDimension = "" + image.Width + "x" + image.Height;
-            string imageSize = info.Length + " bytes";
-            string imageCreation = info.CreationTime.ToString();
+            if (pbox.Image != null)
+            {
+                FileInfo info = new FileInfo(filePath);
+                string imageName = info.Name;
+                string imageExtension = info.Extension;
+                string imageLocation = filePath;
+                string imageDimension = "" + image.Width + "x" + image.Height;
+                string imageSize = info.Length + " bytes";
+                string imageCreation = info.CreationTime.ToString();
 
-            ImageInformationWindow informationWindow = new ImageInformationWindow(imageName, imageExtension, imageLocation,
-                imageDimension, imageSize, imageCreation);
-            informationWindow.Show();
-        }
-
-        private void searchColourButton_Click(object sender, EventArgs e)
-        {
-                try
-                {
-                    chosenColourLabel.Text = "";
-                    chosenColourPanel.BackColor = chosenColor;
-
-                    DialogResult IsColorChosen = colorDialog.ShowDialog();
-
-                    if (IsColorChosen == System.Windows.Forms.DialogResult.OK)
-                    {
-                        chosenColourPanel.BackColor = colorDialog.Color;
-                        if (colorDialog.Color.IsKnownColor == true)
-                        {
-                            chosenColourLabel.Text = colorDialog.Color.ToKnownColor().ToString();
-                        }
-                    }
-                }
-                catch (Exception exc)
-                {
-                    MessageBox.Show(exc.Message);
-                }
+                ImageInformationWindow informationWindow = new ImageInformationWindow(imageName, imageExtension, imageLocation,
+                    imageDimension, imageSize, imageCreation);
+                informationWindow.Show();
             }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded. No information to show.");
+            }
+        }
 
         private void chosenColourPanel_Paint(object sender, PaintEventArgs e)
         {
@@ -130,5 +113,79 @@ namespace IMAVD_IMAGEM
         {
 
         }
+
+        private void chooseColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                chosenColourLabel.Text = "";
+                chosenColourPanel.BackColor = chosenColor;
+
+                DialogResult IsColorChosen = colorDialog.ShowDialog();
+
+                if (IsColorChosen == System.Windows.Forms.DialogResult.OK)
+                {
+                    chosenColourPanel.BackColor = colorDialog.Color;
+                    if (colorDialog.Color.IsKnownColor == true)
+                    {
+                        chosenColourLabel.Text = colorDialog.Color.ToKnownColor().ToString();
+                        detectChosenColorInImage();
+                    }
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void detectChosenColorInImage()
+        {
+            try
+            {
+                Boolean IsColorFound = false;
+
+                if (pbox.Image != null)
+                {
+                    Bitmap bitmap = new Bitmap(pbox.Image);
+
+                    for (int i = 0; i < pbox.Image.Height; i++)
+                    {
+                        for (int j = 0; j < pbox.Image.Width; j++)
+                        {
+                            Color instanceColor = bitmap.GetPixel(j, i);
+                            if (instanceColor.ToArgb() == colorDialog.Color.ToArgb())
+                            {
+                                IsColorFound = true;
+                                MessageBox.Show("Color has been found.");
+                                break;
+                            }
+                        }
+                        if (IsColorFound == true)
+                        {
+                            break;
+                        }
+                    }
+
+                    if (IsColorFound == false)
+                    {
+                        MessageBox.Show("Chosen color was not found.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Image has not yet been loaded.");
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
+        private void pickColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
-    }
+}
