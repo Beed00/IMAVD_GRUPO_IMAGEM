@@ -252,5 +252,81 @@ namespace IMAVD_IMAGEM
                 pbox.Image = inverted;
             }
         }
+
+        private void flipHorizontallyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void flipVerticallyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate90ToTheRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);                
+                pbox.Location = new Point(
+                    pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
+                    pbox.Location.Y + (pbox.Height / 2) - (pbox.Width / 2)
+                    );
+                pbox.Size = new Size(pbox.Height, pbox.Width);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate90ToTheLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                pbox.Location = new Point(
+                    pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
+                    pbox.Location.Y + (pbox.Height / 2) - (pbox.Width / 2)
+                    );
+                pbox.Size = new Size(pbox.Height, pbox.Width);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate180ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+
+                pbox.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
     }
 }
