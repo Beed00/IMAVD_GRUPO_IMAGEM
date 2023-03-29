@@ -218,5 +218,10 @@ namespace IMAVD_IMAGEM
                 detectChosenColorInImage(pickedColor);
             }
         }
+
+        private void findColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
     }
 }

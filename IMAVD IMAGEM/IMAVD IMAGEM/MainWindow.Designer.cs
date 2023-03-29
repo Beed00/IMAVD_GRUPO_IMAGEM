@@ -46,6 +46,7 @@
             this.chooseColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pickColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbox = new System.Windows.Forms.PictureBox();
+            this.findColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.SuspendLayout();
@@ -165,7 +166,8 @@
             // 
             this.colorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chooseColorToolStripMenuItem,
-            this.pickColorToolStripMenuItem});
+            this.pickColorToolStripMenuItem,
+            this.findColorToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
             this.colorToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.colorToolStripMenuItem.Text = "Color";
@@ -195,6 +197,13 @@
             this.pbox.TabIndex = 2;
             this.pbox.TabStop = false;
             this.pbox.Click += new System.EventHandler(this.pbox_Click);
+            // 
+            // findColorToolStripMenuItem
+            // 
+            this.findColorToolStripMenuItem.Name = "findColorToolStripMenuItem";
+            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.findColorToolStripMenuItem.Text = "Find Color";
+            this.findColorToolStripMenuItem.Click += new System.EventHandler(this.findColorToolStripMenuItem_Click);
             // 
             // mainAppWindow
             // 
@@ -240,6 +249,7 @@
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chooseColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pickColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findColorToolStripMenuItem;
     }
 }
 
