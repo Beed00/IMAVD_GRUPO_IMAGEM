@@ -218,26 +218,39 @@ namespace IMAVD_IMAGEM
                 detectChosenColorInImage(pickedColor);
             }
         }
+
         private void findColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            RGBPickerWindow rgbPickerWindow = new RGBPickerWindow(this);
+            rgbPickerWindow.Show();
+        }
 
+        public void detectChosenRGBInImage(int R, int G, int B)
+        {
+            Color pickedRGBColor = new Color();
+            pickedRGBColor = Color.FromArgb(R, G, B);
+
+            detectChosenColorInImage(pickedRGBColor);
         }
 
         private void invertColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitmap inverted = new Bitmap(pbox.Image);
-
-            for (int y = 0; (y <= (inverted.Height - 1)); y++)
+            if (pbox.Image != null)
             {
-                for (int x = 0; (x <= (inverted.Width - 1)); x++)
-                {
-                    Color inv = inverted.GetPixel(x, y);
-                    inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
-                    inverted.SetPixel(x, y, inv);
-                }
-            }
+                Bitmap inverted = new Bitmap(pbox.Image);
 
-            pbox.Image = inverted;
+                for (int y = 0; (y <= (inverted.Height - 1)); y++)
+                {
+                    for (int x = 0; (x <= (inverted.Width - 1)); x++)
+                    {
+                        Color inv = inverted.GetPixel(x, y);
+                        inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                        inverted.SetPixel(x, y, inv);
+                    }
+                }
+
+                pbox.Image = inverted;
+            }
         }
     }
 }
