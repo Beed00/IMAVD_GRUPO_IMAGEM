@@ -218,10 +218,26 @@ namespace IMAVD_IMAGEM
                 detectChosenColorInImage(pickedColor);
             }
         }
-
         private void findColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
 
+        }
+
+        private void invertColorsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            Bitmap inverted = new Bitmap(pbox.Image);
+
+            for (int y = 0; (y <= (inverted.Height - 1)); y++)
+            {
+                for (int x = 0; (x <= (inverted.Width - 1)); x++)
+                {
+                    Color inv = inverted.GetPixel(x, y);
+                    inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
+                    inverted.SetPixel(x, y, inv);
+                }
+            }
+
+            pbox.Image = inverted;
         }
     }
 }
