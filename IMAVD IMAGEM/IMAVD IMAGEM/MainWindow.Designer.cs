@@ -45,6 +45,7 @@
             this.colorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.chooseColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pickColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.findColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invertColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbox = new System.Windows.Forms.PictureBox();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -176,7 +177,8 @@
             this.colorToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.chooseColorToolStripMenuItem,
             this.pickColorToolStripMenuItem,
-            this.invertColorsToolStripMenuItem});
+            this.findColorToolStripMenuItem,
+            this.invertColorsToolStripMenuItem });
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
             this.colorToolStripMenuItem.Size = new System.Drawing.Size(114, 48);
             this.colorToolStripMenuItem.Text = "Color";
@@ -195,6 +197,12 @@
             this.pickColorToolStripMenuItem.Text = "Pick Color";
             this.pickColorToolStripMenuItem.Click += new System.EventHandler(this.pickColorToolStripMenuItem_Click);
             // 
+            // findColorToolStripMenuItem
+            // 
+            this.findColorToolStripMenuItem.Name = "findColorToolStripMenuItem";
+            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.findColorToolStripMenuItem.Text = "Find Color";
+            this.findColorToolStripMenuItem.Click += new System.EventHandler(this.findColorToolStripMenuItem_Click);
             // invertColorsToolStripMenuItem
             // 
             this.invertColorsToolStripMenuItem.Name = "invertColorsToolStripMenuItem";
@@ -310,6 +318,7 @@
         private System.Windows.Forms.ToolStripMenuItem informationToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem chooseColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem pickColorToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem findColorToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem invertColorsToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem imageToolStripMenuItem;
         private System.Windows.Forms.ToolStripMenuItem flipHorizontallyToolStripMenuItem;
