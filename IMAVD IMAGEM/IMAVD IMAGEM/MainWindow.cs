@@ -332,19 +332,33 @@ namespace IMAVD_IMAGEM
 
         private void invertColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            Bitmap inverted;
+
             if (pbox.Image != null)
             {
-                Bitmap inverted = new Bitmap(pbox.Image);
+                inverted = new Bitmap(pbox.Image.Width, pbox.Image.Height);
 
-                for (int y = 0; (y <= (inverted.Height - 1)); y++)
+            ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+            {
+                new float[] {-1, 0, 0, 0, 0},
+                new float[] {0, -1, 0, 0, 0},
+                new float[] {0, 0, -1, 0, 0},
+                new float[] {0, 0, 0, 1, 0},
+                new float[] {1, 1, 1, 0, 1}
+            });
+
+            using (ImageAttributes attrImage = new ImageAttributes())
+            {
+                attrImage.SetColorMatrix(clrMatrix);
+
+                using (Graphics g = Graphics.FromImage(inverted))
                 {
-                    for (int x = 0; (x <= (inverted.Width - 1)); x++)
-                    {
-                        Color inv = inverted.GetPixel(x, y);
-                        inv = Color.FromArgb(255, (255 - inv.R), (255 - inv.G), (255 - inv.B));
-                        inverted.SetPixel(x, y, inv);
-                    }
+                    g.DrawImage(pbox.Image, new Rectangle(0, 0,
+                        pbox.Image.Width, pbox.Image.Height), 0, 0,
+                        pbox.Image.Width, pbox.Image.Height, GraphicsUnit.Pixel,
+                        attrImage);
                 }
+            }
 
                 pbox.Image = inverted;
             }
