@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -21,6 +22,11 @@ namespace IMAVD_IMAGEM
         Color chosenColor;
 
         bool pickColorEvent = false;
+        bool cropImageEventOne = false;
+        bool cropImageEventTwo = false;
+
+        int[] firstLimitMousePosition = new int[2];
+        int[] secondLimitMousePosition = new int[2];
         public mainAppWindow()
         {
             InitializeComponent();
@@ -61,25 +67,35 @@ namespace IMAVD_IMAGEM
             Console.WriteLine("FilePath: " + openFileDialog.FileName);
 
             //"C:/Users/emonteiro/OneDrive - Hitachi Solutions/Desktop/Mestrado ISEP/1ano/2semestre/COSIG/Test_Scene_1.txt";
-            filePath = openFileDialog.FileName;
+            filePath = openFileDialog.FileName.Trim();
+            if (filePath != null)
+            {
+                Console.WriteLine("FilePath: " + filePath);
+                image = Image.FromFile(filePath);
 
-            image = Image.FromFile(filePath);
-
-            pbox.SizeMode = PictureBoxSizeMode.StretchImage;
-            pbox.Image = image;
+                pbox.SizeMode = PictureBoxSizeMode.StretchImage;
+                pbox.Image = image;
+            }
         }
+
+        /*
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        */
 
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                int width = Convert.ToInt32(image.Width);
-                int height = Convert.ToInt32(image.Height);
+                int width = Convert.ToInt32(pbox.Image.Width);
+                int height = Convert.ToInt32(pbox.Image.Height);
                 using (Bitmap bmp = new Bitmap(width, height))
                 {
                     //image..DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
-                    image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
+                    pbox.Image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
         }
@@ -203,8 +219,32 @@ namespace IMAVD_IMAGEM
             }
         }
 
-        private void pbox_Click(object sender, EventArgs e)
+        private void pbox_ClickAsync(object sender, EventArgs e)
         {
+
+            if (cropImageEventTwo)
+            {
+                // Message to register bottom right limit
+
+                secondLimitMousePosition = mousePosition(e);
+
+                cropImageEventTwo = false;
+
+                Rectangle retangulo = createRectangle(firstLimitMousePosition, secondLimitMousePosition);
+
+                pbox.Image = cropImage(pbox.Image, retangulo);
+            }
+
+            if (cropImageEventOne)
+            {
+                // Message to  register top left limit
+
+                firstLimitMousePosition = mousePosition(e);
+
+                cropImageEventOne = false;
+                cropImageEventTwo = true;
+            }
+
             if (pickColorEvent)
             {
                 MouseEventArgs mouse = e as MouseEventArgs;
@@ -219,10 +259,84 @@ namespace IMAVD_IMAGEM
             }
         }
 
+        private int[] mousePosition(EventArgs e)
+        {
+            int[] mousePositions = new int[2];
+            mousePositions[0] = -1;
+
+            MouseEventArgs limitOneMouse = e as MouseEventArgs;
+            Bitmap b = ((Bitmap)pbox.Image);
+            int x = limitOneMouse.X * b.Width / pbox.ClientSize.Width;
+            int y = limitOneMouse.Y * b.Height / pbox.ClientSize.Height;
+
+            mousePositions[0] = x;
+            mousePositions[1] = y;
+
+            Console.WriteLine("X: " + x);
+            Console.WriteLine("Y: " + y);
+
+            if (mousePositions[0] != -1)
+            {
+                return mousePositions;
+            }
+            return null;
+        }
+
+        private Rectangle createRectangle(int[] firtMouseXY, int[] secondMouseXY)
+        {
+            int originX = 0;
+            int originY = 0;
+            int width = 0;
+            int height = 0;
+
+            if(firtMouseXY[0] < secondMouseXY[0])
+            {
+                originX = firtMouseXY[0];
+
+                width = secondMouseXY[0] - firtMouseXY[0];
+            } else
+            {
+                originX = secondMouseXY[0];
+
+                width = firtMouseXY[0] - secondMouseXY[0];
+            }
+
+            if(firtMouseXY[1] < secondMouseXY[1])
+            {
+                originY = firtMouseXY[1];
+
+                height = secondMouseXY[1] - firtMouseXY[1];
+            } else
+            {
+                originY = secondMouseXY[1];
+
+                height = firtMouseXY[1] - secondMouseXY[1];
+            }
+            
+            return new Rectangle(originX, originY, width, height);
+        }
+
+        private void findColorToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            RGBPickerWindow rgbPickerWindow = new RGBPickerWindow(this);
+            rgbPickerWindow.Show();
+        }
+
+        public void detectChosenRGBInImage(int R, int G, int B)
+        {
+            Color pickedRGBColor = new Color();
+            pickedRGBColor = Color.FromArgb(R, G, B);
+
+            detectChosenColorInImage(pickedRGBColor);
+        }
+
         private void invertColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            Bitmap inverted = new Bitmap(pbox.Image.Width,
-                pbox.Image.Height);
+            Bitmap inverted;
+
+            if (pbox.Image != null)
+            {
+                inverted = new Bitmap(pbox.Image.Width, pbox.Image.Height);
 
             ColorMatrix clrMatrix = new ColorMatrix(new float[][]
             {
@@ -246,7 +360,104 @@ namespace IMAVD_IMAGEM
                 }
             }
 
-            pbox.Image = inverted;
+                pbox.Image = inverted;
+            }
+        }
+
+        private void flipHorizontallyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void flipVerticallyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate90ToTheRightToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
+                pbox.Location = new Point(
+                    pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
+                    pbox.Location.Y + (pbox.Height / 2) - (pbox.Width / 2)
+                    );
+                pbox.Size = new Size(pbox.Height, pbox.Width);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate90ToTheLeftToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                pbox.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
+                pbox.Location = new Point(
+                    pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
+                    pbox.Location.Y + (pbox.Height / 2) - (pbox.Width / 2)
+                    );
+                pbox.Size = new Size(pbox.Height, pbox.Width);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void rotate180ToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+
+                pbox.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
+                pbox.Refresh();
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private static Image cropImage(Image img, Rectangle cropArea)
+        {
+            Bitmap bmpImage = new Bitmap(img);
+            Bitmap bmpCrop = bmpImage.Clone(cropArea,
+            bmpImage.PixelFormat);
+            return (Image)(bmpCrop);
+        }
+
+        private void cropImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                cropImageEventOne = true;
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
         }
     }
 }
