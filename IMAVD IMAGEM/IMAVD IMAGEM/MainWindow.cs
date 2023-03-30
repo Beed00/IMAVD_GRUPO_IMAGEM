@@ -78,17 +78,24 @@ namespace IMAVD_IMAGEM
             }
         }
 
+        /*
+        private void saveToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+
+        }
+        */
+
         private void saveAsToolStripMenuItem_Click(object sender, EventArgs e)
         {
             SaveFileDialog dialog = new SaveFileDialog();
             if (dialog.ShowDialog() == DialogResult.OK)
             {
-                int width = Convert.ToInt32(image.Width);
-                int height = Convert.ToInt32(image.Height);
+                int width = Convert.ToInt32(pbox.Image.Width);
+                int height = Convert.ToInt32(pbox.Image.Height);
                 using (Bitmap bmp = new Bitmap(width, height))
                 {
                     //image..DrawToBitmap(bmp, new Rectangle(0, 0, width, height));
-                    image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
+                    pbox.Image.Save(dialog.FileName + ".jpeg", ImageFormat.Jpeg);
                 }
             }
         }
