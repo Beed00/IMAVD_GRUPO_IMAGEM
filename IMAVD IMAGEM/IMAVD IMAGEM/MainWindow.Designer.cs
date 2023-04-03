@@ -53,6 +53,8 @@
             this.pickColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.findColorToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.invertColorsToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.filtersToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.redToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.imageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipHorizontallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.flipVerticallyToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -76,6 +78,8 @@
             this.txtBrightness = new System.Windows.Forms.TextBox();
             this.txtContrast = new System.Windows.Forms.TextBox();
             this.textBox3 = new System.Windows.Forms.TextBox();
+            this.greenToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.blueToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackBarBrightness)).BeginInit();
@@ -97,7 +101,7 @@
             // chosenColourPanel
             // 
             this.chosenColourPanel.Location = new System.Drawing.Point(311, 104);
-            this.chosenColourPanel.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            this.chosenColourPanel.Margin = new System.Windows.Forms.Padding(2);
             this.chosenColourPanel.Name = "chosenColourPanel";
             this.chosenColourPanel.Size = new System.Drawing.Size(73, 10);
             this.chosenColourPanel.TabIndex = 4;
@@ -261,7 +265,8 @@
             this.chooseColorToolStripMenuItem,
             this.pickColorToolStripMenuItem,
             this.findColorToolStripMenuItem,
-            this.invertColorsToolStripMenuItem});
+            this.invertColorsToolStripMenuItem,
+            this.filtersToolStripMenuItem});
             this.colorToolStripMenuItem.Name = "colorToolStripMenuItem";
             this.colorToolStripMenuItem.Size = new System.Drawing.Size(59, 24);
             this.colorToolStripMenuItem.Text = "Color";
@@ -269,30 +274,47 @@
             // chooseColorToolStripMenuItem
             // 
             this.chooseColorToolStripMenuItem.Name = "chooseColorToolStripMenuItem";
-            this.chooseColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.chooseColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.chooseColorToolStripMenuItem.Text = "Choose Color";
             this.chooseColorToolStripMenuItem.Click += new System.EventHandler(this.chooseColorToolStripMenuItem_Click);
             // 
             // pickColorToolStripMenuItem
             // 
             this.pickColorToolStripMenuItem.Name = "pickColorToolStripMenuItem";
-            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.pickColorToolStripMenuItem.Text = "Pick Color";
             this.pickColorToolStripMenuItem.Click += new System.EventHandler(this.pickColorToolStripMenuItem_Click);
             // 
             // findColorToolStripMenuItem
             // 
             this.findColorToolStripMenuItem.Name = "findColorToolStripMenuItem";
-            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.findColorToolStripMenuItem.Text = "Find Color";
             this.findColorToolStripMenuItem.Click += new System.EventHandler(this.findColorToolStripMenuItem_Click);
             // 
             // invertColorsToolStripMenuItem
             // 
             this.invertColorsToolStripMenuItem.Name = "invertColorsToolStripMenuItem";
-            this.invertColorsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
+            this.invertColorsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.invertColorsToolStripMenuItem.Text = "Invert Colors";
             this.invertColorsToolStripMenuItem.Click += new System.EventHandler(this.invertColorsToolStripMenuItem_Click);
+            // 
+            // filtersToolStripMenuItem
+            // 
+            this.filtersToolStripMenuItem.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.redToolStripMenuItem,
+            this.greenToolStripMenuItem,
+            this.blueToolStripMenuItem});
+            this.filtersToolStripMenuItem.Name = "filtersToolStripMenuItem";
+            this.filtersToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.filtersToolStripMenuItem.Text = "Filters";
+            // 
+            // redToolStripMenuItem
+            // 
+            this.redToolStripMenuItem.Name = "redToolStripMenuItem";
+            this.redToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.redToolStripMenuItem.Text = "Red";
+            this.redToolStripMenuItem.Click += new System.EventHandler(this.redToolStripMenuItem_Click);
             // 
             // imageToolStripMenuItem
             // 
@@ -475,6 +497,20 @@
             this.textBox3.TabIndex = 10;
             this.textBox3.Text = "Contrast";
             // 
+            // greenToolStripMenuItem
+            // 
+            this.greenToolStripMenuItem.Name = "greenToolStripMenuItem";
+            this.greenToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.greenToolStripMenuItem.Text = "Green";
+            this.greenToolStripMenuItem.Click += new System.EventHandler(this.greenToolStripMenuItem_Click);
+            // 
+            // blueToolStripMenuItem
+            // 
+            this.blueToolStripMenuItem.Name = "blueToolStripMenuItem";
+            this.blueToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.blueToolStripMenuItem.Text = "Blue";
+            this.blueToolStripMenuItem.Click += new System.EventHandler(this.blueToolStripMenuItem_Click);
+            // 
             // mainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -557,6 +593,10 @@
         private System.Windows.Forms.TextBox txtBrightness;
         private System.Windows.Forms.TextBox txtContrast;
         private System.Windows.Forms.TextBox textBox3;
+        private System.Windows.Forms.ToolStripMenuItem filtersToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem redToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem greenToolStripMenuItem;
+        private System.Windows.Forms.ToolStripMenuItem blueToolStripMenuItem;
     }
 }
 

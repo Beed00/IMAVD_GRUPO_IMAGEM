@@ -606,6 +606,117 @@ namespace IMAVD_IMAGEM
                 pbox.Image = contrast;
             }
         }
+
+        private void redToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                Bitmap temp = (Bitmap)image;
+
+                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {1, 0, 0, 0, 0},
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {0, 0, 0, 1, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(contrast))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = contrast;
+            }
+        }
+
+        private void greenToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                Bitmap temp = (Bitmap)image;
+
+                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 1, 0, 0, 0},
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {0, 0, 0, 1, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(contrast))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = contrast;
+            }
+        }
+
+        private void blueToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                Bitmap temp = (Bitmap)image;
+
+                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 0, 0, 0, 0},
+                    new float[] {0, 0, 1, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {0, 0, 0, 1, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(contrast))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = contrast;
+            }
+        }
     }
 
     public class ImageHistory
