@@ -717,6 +717,18 @@ namespace IMAVD_IMAGEM
                 pbox.Image = contrast;
             }
         }
+
+        private void gammaToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(pbox.Image != null)
+            {
+                GammaWindow gammaWindow = new GammaWindow(this);
+                gammaWindow.ShowDialog();
+                Console.WriteLine("RED VALUE: " + gammaWindow.redGamma + 
+                    " GREEN VALUE: " + gammaWindow.greenGamma + 
+                    " BLUE VALUE: " + gammaWindow.blueGamma);
+            }
+        }
     }
 
     public class ImageHistory

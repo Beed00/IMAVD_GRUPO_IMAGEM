@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="GammaWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="GammaWindow.Designer.cs">
+      <DependentUpon>GammaWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="RGBPickerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -66,6 +72,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="GammaWindow.resx">
+      <DependentUpon>GammaWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="ImageInformationWindow.resx">
       <DependentUpon>ImageInformationWindow.cs</DependentUpon>
     </EmbeddedResource>
