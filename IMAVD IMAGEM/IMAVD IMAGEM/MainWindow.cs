@@ -15,6 +15,11 @@ namespace IMAVD_IMAGEM
 {
     public partial class mainAppWindow : Form
     {
+        // Constants
+        const int MAX_STORABLE_IMAGE_HISTORIES = 10;
+
+
+        // Variables
         Image image;
 
         string filePath;
@@ -27,6 +32,11 @@ namespace IMAVD_IMAGEM
 
         int[] firstLimitMousePosition = new int[2];
         int[] secondLimitMousePosition = new int[2];
+
+        // Undo and Redo Stacks
+        private LinkedList<ImageHistory> undoStack = new LinkedList<ImageHistory>();
+        private LinkedList<ImageHistory> redoStack = new LinkedList<ImageHistory>();
+
         public mainAppWindow()
         {
             InitializeComponent();
@@ -232,7 +242,7 @@ namespace IMAVD_IMAGEM
 
                 Rectangle retangulo = createRectangle(firstLimitMousePosition, secondLimitMousePosition);
 
-                pbox.Image = cropImage(pbox.Image, retangulo);
+                pbox.Image = cropImage(retangulo);
             }
 
             if (cropImageEventOne)
@@ -289,30 +299,32 @@ namespace IMAVD_IMAGEM
             int width = 0;
             int height = 0;
 
-            if(firtMouseXY[0] < secondMouseXY[0])
+            if (firtMouseXY[0] < secondMouseXY[0])
             {
                 originX = firtMouseXY[0];
 
                 width = secondMouseXY[0] - firtMouseXY[0];
-            } else
+            }
+            else
             {
                 originX = secondMouseXY[0];
 
                 width = firtMouseXY[0] - secondMouseXY[0];
             }
 
-            if(firtMouseXY[1] < secondMouseXY[1])
+            if (firtMouseXY[1] < secondMouseXY[1])
             {
                 originY = firtMouseXY[1];
 
                 height = secondMouseXY[1] - firtMouseXY[1];
-            } else
+            }
+            else
             {
                 originY = secondMouseXY[1];
 
                 height = firtMouseXY[1] - secondMouseXY[1];
             }
-            
+
             return new Rectangle(originX, originY, width, height);
         }
 
@@ -332,33 +344,34 @@ namespace IMAVD_IMAGEM
 
         private void invertColorsToolStripMenuItem_Click(object sender, EventArgs e)
         {
+            addImageToHistory();
             Bitmap inverted;
 
             if (pbox.Image != null)
             {
                 inverted = new Bitmap(pbox.Image.Width, pbox.Image.Height);
 
-            ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-            {
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
                 new float[] {-1, 0, 0, 0, 0},
                 new float[] {0, -1, 0, 0, 0},
                 new float[] {0, 0, -1, 0, 0},
                 new float[] {0, 0, 0, 1, 0},
                 new float[] {1, 1, 1, 0, 1}
-            });
+                });
 
-            using (ImageAttributes attrImage = new ImageAttributes())
-            {
-                attrImage.SetColorMatrix(clrMatrix);
-
-                using (Graphics g = Graphics.FromImage(inverted))
+                using (ImageAttributes attrImage = new ImageAttributes())
                 {
-                    g.DrawImage(pbox.Image, new Rectangle(0, 0,
-                        pbox.Image.Width, pbox.Image.Height), 0, 0,
-                        pbox.Image.Width, pbox.Image.Height, GraphicsUnit.Pixel,
-                        attrImage);
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(inverted))
+                    {
+                        g.DrawImage(pbox.Image, new Rectangle(0, 0,
+                            pbox.Image.Width, pbox.Image.Height), 0, 0,
+                            pbox.Image.Width, pbox.Image.Height, GraphicsUnit.Pixel,
+                            attrImage);
+                    }
                 }
-            }
 
                 pbox.Image = inverted;
             }
@@ -368,6 +381,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
                 pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipX);
                 pbox.Refresh();
             }
@@ -381,6 +395,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
                 pbox.Image.RotateFlip(RotateFlipType.RotateNoneFlipY);
                 pbox.Refresh();
             }
@@ -394,6 +409,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
                 pbox.Image.RotateFlip(RotateFlipType.Rotate90FlipNone);
                 pbox.Location = new Point(
                     pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
@@ -412,6 +428,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
                 pbox.Image.RotateFlip(RotateFlipType.Rotate270FlipNone);
                 pbox.Location = new Point(
                     pbox.Location.X + (pbox.Width / 2) - (pbox.Height / 2),
@@ -430,7 +447,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-
+                addImageToHistory();
                 pbox.Image.RotateFlip(RotateFlipType.Rotate180FlipNone);
                 pbox.Refresh();
             }
@@ -440,9 +457,10 @@ namespace IMAVD_IMAGEM
             }
         }
 
-        private static Image cropImage(Image img, Rectangle cropArea)
+        private Image cropImage(Rectangle cropArea)
         {
-            Bitmap bmpImage = new Bitmap(img);
+            addImageToHistory();
+            Bitmap bmpImage = new Bitmap(pbox.Image);
             Bitmap bmpCrop = bmpImage.Clone(cropArea,
             bmpImage.PixelFormat);
             return (Image)(bmpCrop);
@@ -458,6 +476,67 @@ namespace IMAVD_IMAGEM
             {
                 MessageBox.Show("Image has not yet been loaded.");
             }
+        }
+
+        public void addImageToHistory()
+        {
+            undoStack.AddFirst(new ImageHistory(pbox));
+            undoToolStripMenuItem.Enabled = true;
+            if (undoStack.Count >= MAX_STORABLE_IMAGE_HISTORIES)
+            {
+                undoStack.RemoveFirst();
+            }
+            // Clear the redo stack
+            redoToolStripMenuItem.Enabled = false;
+            redoStack.Clear();
+        }
+
+        private void undoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (undoStack.Count > 0)
+            {
+                // Push the current image onto the redo stack and set the previous image as the new image
+                redoStack.AddFirst(new ImageHistory(pbox));
+                ImageHistory data = undoStack.First();
+                pbox.Image = data.ImageBitmap;
+                pbox.Location = data.Location;
+                pbox.Size = data.Size;
+                pbox.Refresh();
+                undoStack.RemoveFirst();
+            }
+            undoToolStripMenuItem.Enabled = undoStack.Count > 0;
+            redoToolStripMenuItem.Enabled = redoStack.Count > 0;
+        }
+
+        private void redoToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (redoStack.Count > 0)
+            {
+                // Push the current image onto the undo stack and set the next image as the new image
+                undoStack.AddFirst(new ImageHistory(pbox));
+                ImageHistory data = redoStack.First();
+                pbox.Image = data.ImageBitmap;
+                pbox.Location = data.Location;
+                pbox.Size = data.Size;
+                pbox.Refresh();
+                redoStack.RemoveFirst();
+            }
+            undoToolStripMenuItem.Enabled = undoStack.Count > 0;
+            redoToolStripMenuItem.Enabled = redoStack.Count > 0;
+        }
+    }
+
+    public class ImageHistory
+    {
+        public Bitmap ImageBitmap { get; set; }
+        public Point Location { get; set; }
+        public Size Size { get; set; }
+
+        public ImageHistory(PictureBox pbox)
+        {
+            ImageBitmap = new Bitmap(pbox.Image);
+            Location = pbox.Location;
+            Size = pbox.Size;
         }
     }
 }
