@@ -459,5 +459,87 @@ namespace IMAVD_IMAGEM
                 MessageBox.Show("Image has not yet been loaded.");
             }
         }
+
+        private void trackBarBrightness_Scroll(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                float chosenBrightness = (float)(trackBarBrightness.Value / 255.0);
+                txtBrightness.Text = trackBarBrightness.Value.ToString();
+
+                Bitmap temp = (Bitmap)image;
+
+                Bitmap brightness = new Bitmap(temp.Width, temp.Height);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {1, 0, 0, 0, 0},
+                    new float[] {0, 1, 0, 0, 0},
+                    new float[] {0, 0, 1, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {chosenBrightness, chosenBrightness, chosenBrightness, 1, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(brightness))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = brightness;
+            }
+        }
+
+        private void trackBarContrast_Scroll(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                float chosenContrast = 1 + (trackBarContrast.Value * 0.01f);
+                txtContrast.Text = trackBarContrast.Value.ToString();
+
+                Bitmap temp = (Bitmap)image;
+
+                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
+
+                float t = 0.5f * (1.0f - chosenContrast);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {chosenContrast, 0, 0, 0, 0},
+                    new float[] {0, chosenContrast, 0, 0, 0},
+                    new float[] {0, 0, chosenContrast, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {t, t, t, 0, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(contrast))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = contrast;
+            }
+        }
     }
 }

@@ -55,18 +55,26 @@
             this.rotate90ToTheRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotate90ToTheLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotate180ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.pbox = new System.Windows.Forms.PictureBox();
             this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem4 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripMenuItem8 = new System.Windows.Forms.ToolStripMenuItem();
+            this.pbox = new System.Windows.Forms.PictureBox();
+            this.textBox1 = new System.Windows.Forms.TextBox();
+            this.trackBarBrightness = new System.Windows.Forms.TrackBar();
+            this.txtBrightness = new System.Windows.Forms.TextBox();
+            this.txtContrast = new System.Windows.Forms.TextBox();
+            this.trackBarContrast = new System.Windows.Forms.TrackBar();
+            this.textBox3 = new System.Windows.Forms.TextBox();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBrightness)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).BeginInit();
             this.SuspendLayout();
             // 
             // exitButton
@@ -135,37 +143,37 @@
             // loadToolStripMenuItem
             // 
             this.loadToolStripMenuItem.Name = "loadToolStripMenuItem";
-            this.loadToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.loadToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.loadToolStripMenuItem.Text = "Load";
             this.loadToolStripMenuItem.Click += new System.EventHandler(this.loadToolStripMenuItem_Click);
             // 
             // toolStripSeparator1
             // 
             this.toolStripSeparator1.Name = "toolStripSeparator1";
-            this.toolStripSeparator1.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator1.Size = new System.Drawing.Size(167, 6);
             // 
             // saveToolStripMenuItem
             // 
             this.saveToolStripMenuItem.Name = "saveToolStripMenuItem";
-            this.saveToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.saveToolStripMenuItem.Text = "Save";
             // 
             // saveAsToolStripMenuItem
             // 
             this.saveAsToolStripMenuItem.Name = "saveAsToolStripMenuItem";
-            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.saveAsToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.saveAsToolStripMenuItem.Text = "Save as...";
             this.saveAsToolStripMenuItem.Click += new System.EventHandler(this.saveAsToolStripMenuItem_Click);
             // 
             // toolStripSeparator2
             // 
             this.toolStripSeparator2.Name = "toolStripSeparator2";
-            this.toolStripSeparator2.Size = new System.Drawing.Size(221, 6);
+            this.toolStripSeparator2.Size = new System.Drawing.Size(167, 6);
             // 
             // informationToolStripMenuItem
             // 
             this.informationToolStripMenuItem.Name = "informationToolStripMenuItem";
-            this.informationToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.informationToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.informationToolStripMenuItem.Text = "Information";
             this.informationToolStripMenuItem.Click += new System.EventHandler(this.informationToolStripMenuItem_Click);
             // 
@@ -180,7 +188,7 @@
             // cropImageToolStripMenuItem
             // 
             this.cropImageToolStripMenuItem.Name = "cropImageToolStripMenuItem";
-            this.cropImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.cropImageToolStripMenuItem.Size = new System.Drawing.Size(170, 26);
             this.cropImageToolStripMenuItem.Text = "Crop Image";
             this.cropImageToolStripMenuItem.Click += new System.EventHandler(this.cropImageToolStripMenuItem_Click);
             // 
@@ -204,28 +212,28 @@
             // chooseColorToolStripMenuItem
             // 
             this.chooseColorToolStripMenuItem.Name = "chooseColorToolStripMenuItem";
-            this.chooseColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.chooseColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.chooseColorToolStripMenuItem.Text = "Choose Color";
             this.chooseColorToolStripMenuItem.Click += new System.EventHandler(this.chooseColorToolStripMenuItem_Click);
             // 
             // pickColorToolStripMenuItem
             // 
             this.pickColorToolStripMenuItem.Name = "pickColorToolStripMenuItem";
-            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.pickColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.pickColorToolStripMenuItem.Text = "Pick Color";
             this.pickColorToolStripMenuItem.Click += new System.EventHandler(this.pickColorToolStripMenuItem_Click);
             // 
             // findColorToolStripMenuItem
             // 
             this.findColorToolStripMenuItem.Name = "findColorToolStripMenuItem";
-            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.findColorToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.findColorToolStripMenuItem.Text = "Find Color";
             this.findColorToolStripMenuItem.Click += new System.EventHandler(this.findColorToolStripMenuItem_Click);
             // 
             // invertColorsToolStripMenuItem
             // 
             this.invertColorsToolStripMenuItem.Name = "invertColorsToolStripMenuItem";
-            this.invertColorsToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.invertColorsToolStripMenuItem.Size = new System.Drawing.Size(181, 26);
             this.invertColorsToolStripMenuItem.Text = "Invert Colors";
             this.invertColorsToolStripMenuItem.Click += new System.EventHandler(this.invertColorsToolStripMenuItem_Click);
             // 
@@ -284,17 +292,6 @@
             this.rotate180ToolStripMenuItem.Text = "Rotate 180º";
             this.rotate180ToolStripMenuItem.Click += new System.EventHandler(this.rotate180ToolStripMenuItem_Click);
             // 
-            // pbox
-            // 
-            this.pbox.Anchor = System.Windows.Forms.AnchorStyles.None;
-            this.pbox.Location = new System.Drawing.Point(8, 32);
-            this.pbox.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
-            this.pbox.Name = "pbox";
-            this.pbox.Size = new System.Drawing.Size(766, 407);
-            this.pbox.TabIndex = 2;
-            this.pbox.TabStop = false;
-            this.pbox.Click += new System.EventHandler(this.pbox_ClickAsync);
-            // 
             // toolStripSeparator4
             // 
             this.toolStripSeparator4.Name = "toolStripSeparator4";
@@ -317,51 +314,121 @@
             // toolStripMenuItem2
             // 
             this.toolStripMenuItem2.Name = "toolStripMenuItem2";
-            this.toolStripMenuItem2.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem2.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem2.Text = "50%";
             // 
             // toolStripMenuItem3
             // 
             this.toolStripMenuItem3.Name = "toolStripMenuItem3";
-            this.toolStripMenuItem3.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem3.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem3.Text = "100%";
+            // 
+            // toolStripMenuItem8
+            // 
+            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
+            this.toolStripMenuItem8.Size = new System.Drawing.Size(128, 26);
+            this.toolStripMenuItem8.Text = "150%";
             // 
             // toolStripMenuItem4
             // 
             this.toolStripMenuItem4.Name = "toolStripMenuItem4";
-            this.toolStripMenuItem4.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem4.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem4.Text = "200%";
             // 
             // toolStripMenuItem5
             // 
             this.toolStripMenuItem5.Name = "toolStripMenuItem5";
-            this.toolStripMenuItem5.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem5.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem5.Text = "300%";
             // 
             // toolStripMenuItem6
             // 
             this.toolStripMenuItem6.Name = "toolStripMenuItem6";
-            this.toolStripMenuItem6.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem6.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem6.Text = "400%";
             // 
             // toolStripMenuItem7
             // 
             this.toolStripMenuItem7.Name = "toolStripMenuItem7";
-            this.toolStripMenuItem7.Size = new System.Drawing.Size(224, 26);
+            this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem7.Text = "500%";
             // 
-            // toolStripMenuItem8
+            // pbox
             // 
-            this.toolStripMenuItem8.Name = "toolStripMenuItem8";
-            this.toolStripMenuItem8.Size = new System.Drawing.Size(224, 26);
-            this.toolStripMenuItem8.Text = "150%";
+            this.pbox.Anchor = System.Windows.Forms.AnchorStyles.None;
+            this.pbox.Location = new System.Drawing.Point(11, 33);
+            this.pbox.Margin = new System.Windows.Forms.Padding(2, 4, 2, 4);
+            this.pbox.Name = "pbox";
+            this.pbox.Size = new System.Drawing.Size(766, 407);
+            this.pbox.TabIndex = 2;
+            this.pbox.TabStop = false;
+            this.pbox.Click += new System.EventHandler(this.pbox_ClickAsync);
+            // 
+            // textBox1
+            // 
+            this.textBox1.Location = new System.Drawing.Point(13, 466);
+            this.textBox1.Name = "textBox1";
+            this.textBox1.Size = new System.Drawing.Size(73, 22);
+            this.textBox1.TabIndex = 6;
+            this.textBox1.Text = "Brightness";
+            // 
+            // trackBarBrightness
+            // 
+            this.trackBarBrightness.Location = new System.Drawing.Point(92, 475);
+            this.trackBarBrightness.Maximum = 255;
+            this.trackBarBrightness.Minimum = -255;
+            this.trackBarBrightness.Name = "trackBarBrightness";
+            this.trackBarBrightness.Size = new System.Drawing.Size(674, 56);
+            this.trackBarBrightness.TabIndex = 7;
+            this.trackBarBrightness.Scroll += new System.EventHandler(this.trackBarBrightness_Scroll);
+            // 
+            // txtBrightness
+            // 
+            this.txtBrightness.Location = new System.Drawing.Point(13, 494);
+            this.txtBrightness.Name = "txtBrightness";
+            this.txtBrightness.Size = new System.Drawing.Size(73, 22);
+            this.txtBrightness.TabIndex = 8;
+            this.txtBrightness.Text = "0";
+            // 
+            // txtContrast
+            // 
+            this.txtContrast.Location = new System.Drawing.Point(13, 556);
+            this.txtContrast.Name = "txtContrast";
+            this.txtContrast.Size = new System.Drawing.Size(73, 22);
+            this.txtContrast.TabIndex = 11;
+            this.txtContrast.Text = "1";
+            // 
+            // trackBarContrast
+            // 
+            this.trackBarContrast.Location = new System.Drawing.Point(92, 537);
+            this.trackBarContrast.Maximum = 100;
+            this.trackBarContrast.Minimum = -100;
+            this.trackBarContrast.Name = "trackBarContrast";
+            this.trackBarContrast.Size = new System.Drawing.Size(674, 56);
+            this.trackBarContrast.TabIndex = 10;
+            this.trackBarContrast.Value = 1;
+            this.trackBarContrast.Scroll += new System.EventHandler(this.trackBarContrast_Scroll);
+            // 
+            // textBox3
+            // 
+            this.textBox3.Location = new System.Drawing.Point(13, 528);
+            this.textBox3.Name = "textBox3";
+            this.textBox3.Size = new System.Drawing.Size(73, 22);
+            this.textBox3.TabIndex = 9;
+            this.textBox3.Text = "Contrast";
             // 
             // mainAppWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.BackColor = System.Drawing.SystemColors.Window;
-            this.ClientSize = new System.Drawing.Size(778, 444);
+            this.ClientSize = new System.Drawing.Size(778, 598);
+            this.Controls.Add(this.txtContrast);
+            this.Controls.Add(this.trackBarContrast);
+            this.Controls.Add(this.textBox3);
+            this.Controls.Add(this.txtBrightness);
+            this.Controls.Add(this.trackBarBrightness);
+            this.Controls.Add(this.textBox1);
             this.Controls.Add(this.chosenColourLabel);
             this.Controls.Add(this.chosenColourPanel);
             this.Controls.Add(this.pbox);
@@ -375,6 +442,8 @@
             this.menuStrip1.ResumeLayout(false);
             this.menuStrip1.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarBrightness)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackBarContrast)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -419,6 +488,12 @@
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem6;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem7;
         private System.Windows.Forms.ToolStripMenuItem toolStripMenuItem8;
+        private System.Windows.Forms.TextBox textBox1;
+        private System.Windows.Forms.TrackBar trackBarBrightness;
+        private System.Windows.Forms.TextBox txtBrightness;
+        private System.Windows.Forms.TextBox txtContrast;
+        private System.Windows.Forms.TrackBar trackBarContrast;
+        private System.Windows.Forms.TextBox textBox3;
     }
 }
 
