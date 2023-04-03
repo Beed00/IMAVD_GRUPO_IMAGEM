@@ -524,20 +524,6 @@ namespace IMAVD_IMAGEM
             undoToolStripMenuItem.Enabled = undoStack.Count > 0;
             redoToolStripMenuItem.Enabled = redoStack.Count > 0;
         }
-    }
-
-    public class ImageHistory
-    {
-        public Bitmap ImageBitmap { get; set; }
-        public Point Location { get; set; }
-        public Size Size { get; set; }
-
-        public ImageHistory(PictureBox pbox)
-        {
-            ImageBitmap = new Bitmap(pbox.Image);
-            Location = pbox.Location;
-            Size = pbox.Size;
-        }
 
         private void trackBarBrightness_Scroll(object sender, EventArgs e)
         {
@@ -619,6 +605,20 @@ namespace IMAVD_IMAGEM
 
                 pbox.Image = contrast;
             }
+        }
+    }
+
+    public class ImageHistory
+    {
+        public Bitmap ImageBitmap { get; set; }
+        public Point Location { get; set; }
+        public Size Size { get; set; }
+
+        public ImageHistory(PictureBox pbox)
+        {
+            ImageBitmap = new Bitmap(pbox.Image);
+            Location = pbox.Location;
+            Size = pbox.Size;
         }
     }
 }
