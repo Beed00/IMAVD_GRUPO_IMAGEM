@@ -6,6 +6,7 @@ using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
+using System.Runtime.Remoting.Metadata.W3cXsd2001;
 using System.Security.Policy;
 using System.Text;
 using System.Threading.Tasks;
@@ -40,7 +41,39 @@ namespace IMAVD_IMAGEM
         public mainAppWindow()
         {
             InitializeComponent();
+            MouseWheel += MyMouseWheel;
+        }
 
+        private void MyMouseWheel(object sender, MouseEventArgs e)
+        {
+            int mousedeltavalue = e.Delta / 2;
+            
+            if (ModifierKeys == Keys.Control)
+            {
+                double resizeCoeff = (double)(100 + mousedeltavalue / 2) / 100;
+                Size newSize = new Size((int)(pbox.Size.Width * resizeCoeff), (int)(pbox.Size.Height * resizeCoeff));
+                pbox.Size = newSize;
+                pbox.Location = new Point(
+                    e.Location.X - (int)(resizeCoeff * (e.Location.X - pbox.Location.X)),
+                    e.Location.Y - (int)(resizeCoeff * (e.Location.Y - pbox.Location.Y))
+                    );
+                return;
+            }
+
+            if (ModifierKeys == Keys.Shift)
+            {
+                pbox.Location = new Point(
+                    pbox.Location.X + mousedeltavalue,
+                    pbox.Location.Y
+                    );
+            }
+            else
+            {
+                pbox.Location = new Point(
+                    pbox.Location.X,
+                    pbox.Location.Y + mousedeltavalue
+                    );
+            }
         }
 
         private void loadImageButton_Click(object sender, EventArgs e)
@@ -720,12 +753,12 @@ namespace IMAVD_IMAGEM
 
         private void gammaToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(pbox.Image != null)
+            if (pbox.Image != null)
             {
                 GammaWindow gammaWindow = new GammaWindow(this);
                 gammaWindow.ShowDialog();
-                Console.WriteLine("RED VALUE: " + gammaWindow.redGamma + 
-                    " GREEN VALUE: " + gammaWindow.greenGamma + 
+                Console.WriteLine("RED VALUE: " + gammaWindow.redGamma +
+                    " GREEN VALUE: " + gammaWindow.greenGamma +
                     " BLUE VALUE: " + gammaWindow.blueGamma);
             }
         }
