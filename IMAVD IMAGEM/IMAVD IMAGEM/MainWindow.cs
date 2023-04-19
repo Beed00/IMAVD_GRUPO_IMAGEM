@@ -762,6 +762,17 @@ namespace IMAVD_IMAGEM
                     " BLUE VALUE: " + gammaWindow.blueGamma);
             }
         }
+
+        private void redimensionToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            int width = 100;
+            int height = 100;
+            if (pbox.Image != null && pbox.Image.Width != width && pbox.Image.Height != height)
+            {
+                addImageToHistory();
+                pbox.Image = new Bitmap(pbox.Image, new Size(width, height));
+            }
+        }
     }
 
     public class ImageHistory
