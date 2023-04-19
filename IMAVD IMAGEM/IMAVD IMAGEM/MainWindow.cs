@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Drawing;
 using System.Drawing.Imaging;
 using System.IO;
@@ -20,7 +21,7 @@ namespace IMAVD_IMAGEM
 
 
         // Variables
-        Image image;
+        Image backup;
 
         string filePath;
 
@@ -81,10 +82,10 @@ namespace IMAVD_IMAGEM
             if (filePath != null)
             {
                 Console.WriteLine("FilePath: " + filePath);
-                image = Image.FromFile(filePath);
+                backup = Image.FromFile(filePath);
 
                 pbox.SizeMode = PictureBoxSizeMode.StretchImage;
-                pbox.Image = image;
+                pbox.Image = backup;
             }
         }
 
@@ -118,7 +119,7 @@ namespace IMAVD_IMAGEM
                 string imageName = info.Name;
                 string imageExtension = info.Extension;
                 string imageLocation = filePath;
-                string imageDimension = "" + image.Width + "x" + image.Height;
+                string imageDimension = "" + backup.Width + "x" + backup.Height;
                 string imageSize = info.Length + " bytes";
                 string imageCreation = info.CreationTime.ToString();
 
@@ -532,7 +533,7 @@ namespace IMAVD_IMAGEM
                 float chosenBrightness = (float)(trackBarBrightness.Value / 255.0);
                 txtBrightness.Text = trackBarBrightness.Value.ToString();
 
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap brightness = new Bitmap(temp.Width, temp.Height);
 
@@ -572,7 +573,7 @@ namespace IMAVD_IMAGEM
                 float chosenContrast = 1 + (trackBarContrast.Value * 0.01f);
                 txtContrast.Text = trackBarContrast.Value.ToString();
 
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -611,7 +612,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -648,7 +649,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -685,7 +686,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -722,11 +723,35 @@ namespace IMAVD_IMAGEM
         {
             if(pbox.Image != null)
             {
+                Bitmap temp = (Bitmap)backup;
+
                 GammaWindow gammaWindow = new GammaWindow(this);
                 gammaWindow.ShowDialog();
                 Console.WriteLine("RED VALUE: " + gammaWindow.redGamma + 
                     " GREEN VALUE: " + gammaWindow.greenGamma + 
                     " BLUE VALUE: " + gammaWindow.blueGamma);
+
+                float redGamma = gammaWindow.redGamma;
+                float greenGamma = gammaWindow.greenGamma;
+                float blueGamma = gammaWindow.blueGamma;
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetGamma(redGamma, ColorAdjustType.Bitmap);
+
+                    using (Graphics g = Graphics.FromImage(temp))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = temp;
             }
         }
     }
