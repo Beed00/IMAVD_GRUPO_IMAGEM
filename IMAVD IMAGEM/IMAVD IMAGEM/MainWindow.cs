@@ -787,6 +787,39 @@ namespace IMAVD_IMAGEM
 
             }
         }
+
+        private void addTextToImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                TextForImageWindow textWindow = new TextForImageWindow(this);
+                textWindow.ShowDialog();
+
+                string textForImage = textWindow.textToAdd;
+
+                if (string.IsNullOrEmpty(textForImage))
+                {
+                    PointF txtLocation = new PointF(200, 200);
+
+                    using (Graphics graphics = Graphics.FromImage(temp))
+                    {
+                        using (Font arialFont = new Font("Arial", 30))
+                        {
+                            graphics.DrawString(textForImage, arialFont, Brushes.Black, txtLocation);
+                        }
+
+                        graphics.Dispose();
+                    }
+
+                    pbox.Image = temp;
+                }
+
+            }
+        }
     }
 
     public class ImageHistory
