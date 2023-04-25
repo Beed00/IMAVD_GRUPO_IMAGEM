@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrightnessContrastWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrightnessContrastWindow.Designer.cs">
+      <DependentUpon>BrightnessContrastWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GammaWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,9 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <EmbeddedResource Include="BrightnessContrastWindow.resx">
+      <DependentUpon>BrightnessContrastWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GammaWindow.resx">
       <DependentUpon>GammaWindow.cs</DependentUpon>
     </EmbeddedResource>
