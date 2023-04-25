@@ -565,88 +565,6 @@ namespace IMAVD_IMAGEM
             redoToolStripMenuItem.Enabled = redoStack.Count > 0;
         }
 
-        //private void trackBarBrightness_Scroll(object sender, EventArgs e)
-        //{
-        //    if (pbox.Image != null)
-        //    {
-        //        float chosenBrightness = (float)(trackBarBrightness.Value / 255.0);
-        //        txtBrightness.Text = trackBarBrightness.Value.ToString();
-
-        //        Bitmap temp = (Bitmap)backup;
-
-        //        Bitmap brightness = new Bitmap(temp.Width, temp.Height);
-
-        //        ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-        //        {
-        //            new float[] {1, 0, 0, 0, 0},
-        //            new float[] {0, 1, 0, 0, 0},
-        //            new float[] {0, 0, 1, 0, 0},
-        //            new float[] {0, 0, 0, 1, 0},
-        //            new float[] {chosenBrightness, chosenBrightness, chosenBrightness, 1, 1}
-        //        });
-
-        //        using (ImageAttributes attrImage = new ImageAttributes())
-        //        {
-        //            attrImage.SetColorMatrix(clrMatrix);
-
-        //            using (Graphics g = Graphics.FromImage(brightness))
-        //            {
-        //                g.DrawImage(temp, new Rectangle(0, 0,
-        //                    temp.Width, temp.Height), 0, 0,
-        //                    temp.Width, temp.Height, GraphicsUnit.Pixel,
-        //                    attrImage);
-
-        //                attrImage.Dispose();
-        //                g.Dispose();
-        //            }
-        //        }
-
-        //        pbox.Image = brightness;
-        //    }
-        //}
-
-        //private void trackBarContrast_Scroll(object sender, EventArgs e)
-        //{
-        //    if (pbox.Image != null)
-        //    {
-        //        float chosenContrast = 1 + (trackBarContrast.Value * 0.01f);
-        //        txtContrast.Text = trackBarContrast.Value.ToString();
-
-        //        Bitmap temp = (Bitmap)backup;
-
-        //        Bitmap contrast = new Bitmap(temp.Width, temp.Height);
-
-        //        float t = 0.5f * (1.0f - chosenContrast);
-
-        //        ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-        //        {
-        //            new float[] {chosenContrast, 0, 0, 0, 0},
-        //            new float[] {0, chosenContrast, 0, 0, 0},
-        //            new float[] {0, 0, chosenContrast, 0, 0},
-        //            new float[] {0, 0, 0, 1, 0},
-        //            new float[] {t, t, t, 0, 1}
-        //        });
-
-        //        using (ImageAttributes attrImage = new ImageAttributes())
-        //        {
-        //            attrImage.SetColorMatrix(clrMatrix);
-
-        //            using (Graphics g = Graphics.FromImage(contrast))
-        //            {
-        //                g.DrawImage(temp, new Rectangle(0, 0,
-        //                    temp.Width, temp.Height), 0, 0,
-        //                    temp.Width, temp.Height, GraphicsUnit.Pixel,
-        //                    attrImage);
-
-        //                attrImage.Dispose();
-        //                g.Dispose();
-        //            }
-        //        }
-
-        //        pbox.Image = contrast;
-        //    }
-        //}
-
         private void redToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (pbox.Image != null)
@@ -762,31 +680,58 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)backup;
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
 
                 GammaWindow gammaWindow = new GammaWindow(this);
                 gammaWindow.ShowDialog();
-                Console.WriteLine("RED VALUE: " + gammaWindow.redGamma +
-                    " GREEN VALUE: " + gammaWindow.greenGamma +
-                    " BLUE VALUE: " + gammaWindow.blueGamma);
 
                 float redGamma = gammaWindow.redGamma;
                 float greenGamma = gammaWindow.greenGamma;
                 float blueGamma = gammaWindow.blueGamma;
 
-                using (ImageAttributes attrImage = new ImageAttributes())
+                for(int i = 0; i < temp.Width; i++)
                 {
-                    attrImage.SetGamma(redGamma, ColorAdjustType.Bitmap);
-
-                    using (Graphics g = Graphics.FromImage(temp))
+                    for(int j = 0; j < temp.Height; j++)
                     {
-                        g.DrawImage(temp, new Rectangle(0, 0,
-                            temp.Width, temp.Height), 0, 0,
-                            temp.Width, temp.Height, GraphicsUnit.Pixel,
-                            attrImage);
+                        Color c = temp.GetPixel(i, j);
 
-                        attrImage.Dispose();
-                        g.Dispose();
+                        int newRed = 0;
+                        int newGreen = 0;
+                        int newBlue = 0;
+
+                        if(redGamma < 0)
+                        {
+                            newRed = c.R;
+                        }
+                        else
+                        {
+                            newRed = (int)Math.Pow(c.R, 1 / redGamma);
+                        }
+
+                        if(greenGamma < 0)
+                        {
+                            newGreen = c.G;
+                        }
+                        else
+                        {
+                            newGreen = (int)Math.Pow(c.G, 1 / greenGamma);
+                        }
+
+                        if(blueGamma < 0)
+                        {
+                            newBlue = c.B;
+                        }
+                        else
+                        {
+                            newBlue = (int)Math.Pow(c.B, 1 / blueGamma);
+                        }
+
+                        Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
+
+                        temp.SetPixel(i, j, newColor);
+
                     }
                 }
 
@@ -798,6 +743,8 @@ namespace IMAVD_IMAGEM
         {
             if(pbox.Image != null)
             {
+                addImageToHistory();
+
                 BrightnessContrastWindow brightnessContrastWindow = new BrightnessContrastWindow(this,currentBrightness,currentContrast);
                 brightnessContrastWindow.ShowDialog();
 
@@ -807,7 +754,7 @@ namespace IMAVD_IMAGEM
                 float chosenContrast = 1 + (currentContrast * 0.01f);
                 float chosenBrightness = (float)(currentBrightness / 255.0);
 
-                Bitmap temp = (Bitmap)backup;
+                Bitmap temp = (Bitmap)pbox.Image;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
