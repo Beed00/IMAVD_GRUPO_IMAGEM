@@ -23,7 +23,7 @@ namespace IMAVD_IMAGEM
 
         private void btnAdd_Click(object sender, EventArgs e)
         {
-            if(string.IsNullOrEmpty(txtBox.Text))
+            if(!string.IsNullOrEmpty(txtBox.Text))
             {
                 textToAdd = txtBox.Text;
             }

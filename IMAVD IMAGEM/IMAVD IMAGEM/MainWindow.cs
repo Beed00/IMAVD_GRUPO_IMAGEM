@@ -4,6 +4,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Diagnostics.Contracts;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -800,19 +801,23 @@ namespace IMAVD_IMAGEM
                 textWindow.ShowDialog();
 
                 string textForImage = textWindow.textToAdd;
+                 
+                Console.WriteLine("TEXTO: " + textForImage);
 
-                if (string.IsNullOrEmpty(textForImage))
+                if (!string.IsNullOrEmpty(textForImage))
                 {
-                    PointF txtLocation = new PointF(200, 200);
+                    RectangleF rectf = new RectangleF(temp.Width / 2, temp.Height / 2, temp.Width / 2, temp.Height / 2); //rectf for My Text
 
-                    using (Graphics graphics = Graphics.FromImage(temp))
+                    using (Graphics g = Graphics.FromImage(temp))
                     {
-                        using (Font arialFont = new Font("Arial", 30))
-                        {
-                            graphics.DrawString(textForImage, arialFont, Brushes.Black, txtLocation);
-                        }
-
-                        graphics.Dispose();
+                        g.SmoothingMode = SmoothingMode.AntiAlias;
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        StringFormat sf = new StringFormat();
+                        sf.Alignment = StringAlignment.Center;
+                        sf.LineAlignment = StringAlignment.Center;
+                        g.DrawString(textForImage, new System.Drawing.Font("Arial", 20, FontStyle.Regular), Brushes.Black, rectf, sf);
+                        g.Dispose();
                     }
 
                     pbox.Image = temp;
