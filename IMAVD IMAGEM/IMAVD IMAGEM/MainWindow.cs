@@ -825,6 +825,44 @@ namespace IMAVD_IMAGEM
 
             }
         }
+
+        private void addImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(pbox.Image != null)
+            {
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                int size = -1;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                DialogResult result = openFileDialog.ShowDialog(); // Shows the dialog.
+                if (result == DialogResult.OK) // Tests result.
+                {
+                    string file = openFileDialog.FileName;
+                    try
+                    {
+                        string text = File.ReadAllText(file);
+                        size = text.Length;
+                    }
+                    catch (IOException)
+                    {
+                    }
+                }
+
+                filePath = openFileDialog.FileName.Trim();
+                if (filePath != null)
+                {
+                    Image imageToAdd = Image.FromFile(filePath);
+
+                    Graphics g = Graphics.FromImage(temp);
+                    g.DrawImage(imageToAdd, temp.Width / 2, 10);
+
+                    pbox.Image = temp;
+                }
+
+            }
+        }
     }
 
     public class ImageHistory

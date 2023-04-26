@@ -45,6 +45,8 @@
             this.redoToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripSeparator5 = new System.Windows.Forms.ToolStripSeparator();
             this.cropImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addTextToImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
+            this.addImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.viewToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomToolStripMenuItem1 = new System.Windows.Forms.ToolStripMenuItem();
             this.zoomOutToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
@@ -65,7 +67,7 @@
             this.rotate90ToTheRightToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotate90ToTheLeftToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.rotate180ToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
+            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
             this.zoomToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem2 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem3 = new System.Windows.Forms.ToolStripMenuItem();
@@ -74,11 +76,9 @@
             this.toolStripMenuItem5 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem6 = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStripMenuItem7 = new System.Windows.Forms.ToolStripMenuItem();
+            this.toolStripSeparator4 = new System.Windows.Forms.ToolStripSeparator();
             this.brightnessContrastToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.pbox = new System.Windows.Forms.PictureBox();
-            this.toolStripSeparator6 = new System.Windows.Forms.ToolStripSeparator();
-            this.addTextToImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
-            this.addImageToolStripMenuItem = new System.Windows.Forms.ToolStripMenuItem();
             this.menuStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.pbox)).BeginInit();
             this.SuspendLayout();
@@ -232,6 +232,20 @@
             this.cropImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
             this.cropImageToolStripMenuItem.Text = "Crop Image";
             this.cropImageToolStripMenuItem.Click += new System.EventHandler(this.cropImageToolStripMenuItem_Click);
+            // 
+            // addTextToImageToolStripMenuItem
+            // 
+            this.addTextToImageToolStripMenuItem.Name = "addTextToImageToolStripMenuItem";
+            this.addTextToImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addTextToImageToolStripMenuItem.Text = "Add Text to Image";
+            this.addTextToImageToolStripMenuItem.Click += new System.EventHandler(this.addTextToImageToolStripMenuItem_Click);
+            // 
+            // addImageToolStripMenuItem
+            // 
+            this.addImageToolStripMenuItem.Name = "addImageToolStripMenuItem";
+            this.addImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
+            this.addImageToolStripMenuItem.Text = "Add Image";
+            this.addImageToolStripMenuItem.Click += new System.EventHandler(this.addImageToolStripMenuItem_Click);
             // 
             // viewToolStripMenuItem
             // 
@@ -395,10 +409,10 @@
             this.rotate180ToolStripMenuItem.Text = "Rotate 180º";
             this.rotate180ToolStripMenuItem.Click += new System.EventHandler(this.rotate180ToolStripMenuItem_Click);
             // 
-            // toolStripSeparator4
+            // toolStripSeparator6
             // 
-            this.toolStripSeparator4.Name = "toolStripSeparator4";
-            this.toolStripSeparator4.Size = new System.Drawing.Size(290, 6);
+            this.toolStripSeparator6.Name = "toolStripSeparator6";
+            this.toolStripSeparator6.Size = new System.Drawing.Size(290, 6);
             // 
             // zoomToolStripMenuItem
             // 
@@ -456,6 +470,11 @@
             this.toolStripMenuItem7.Size = new System.Drawing.Size(128, 26);
             this.toolStripMenuItem7.Text = "500%";
             // 
+            // toolStripSeparator4
+            // 
+            this.toolStripSeparator4.Name = "toolStripSeparator4";
+            this.toolStripSeparator4.Size = new System.Drawing.Size(290, 6);
+            // 
             // brightnessContrastToolStripMenuItem
             // 
             this.brightnessContrastToolStripMenuItem.Name = "brightnessContrastToolStripMenuItem";
@@ -474,24 +493,6 @@
             this.pbox.TabIndex = 2;
             this.pbox.TabStop = false;
             this.pbox.Click += new System.EventHandler(this.pbox_ClickAsync);
-            // 
-            // toolStripSeparator6
-            // 
-            this.toolStripSeparator6.Name = "toolStripSeparator6";
-            this.toolStripSeparator6.Size = new System.Drawing.Size(290, 6);
-            // 
-            // addTextToImageToolStripMenuItem
-            // 
-            this.addTextToImageToolStripMenuItem.Name = "addTextToImageToolStripMenuItem";
-            this.addTextToImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.addTextToImageToolStripMenuItem.Text = "Add Text to Image";
-            this.addTextToImageToolStripMenuItem.Click += new System.EventHandler(this.addTextToImageToolStripMenuItem_Click);
-            // 
-            // addImageToolStripMenuItem
-            // 
-            this.addImageToolStripMenuItem.Name = "addImageToolStripMenuItem";
-            this.addImageToolStripMenuItem.Size = new System.Drawing.Size(224, 26);
-            this.addImageToolStripMenuItem.Text = "Add Image";
             // 
             // mainAppWindow
             // 
