@@ -58,6 +58,12 @@
     <Compile Include="GammaWindow.Designer.cs">
       <DependentUpon>GammaWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="ResizeWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ResizeWindow.Designer.cs">
+      <DependentUpon>ResizeWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="RGBPickerWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -106,6 +112,9 @@
       <AutoGen>True</AutoGen>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
+    <EmbeddedResource Include="ResizeWindow.resx">
+      <DependentUpon>ResizeWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="RGBPickerWindow.resx">
       <DependentUpon>RGBPickerWindow.cs</DependentUpon>
     </EmbeddedResource>

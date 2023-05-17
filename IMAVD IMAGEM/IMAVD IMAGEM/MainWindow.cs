@@ -55,7 +55,7 @@ namespace IMAVD_IMAGEM
         private void MyMouseWheel(object sender, MouseEventArgs e)
         {
             int mousedeltavalue = e.Delta / 2;
-            
+
             if (ModifierKeys == Keys.Control)
             {
                 double resizeCoeff = (double)(100 + mousedeltavalue / 2) / 100;
@@ -692,9 +692,9 @@ namespace IMAVD_IMAGEM
                 float greenGamma = gammaWindow.greenGamma;
                 float blueGamma = gammaWindow.blueGamma;
 
-                for(int i = 0; i < temp.Width; i++)
+                for (int i = 0; i < temp.Width; i++)
                 {
-                    for(int j = 0; j < temp.Height; j++)
+                    for (int j = 0; j < temp.Height; j++)
                     {
                         Color c = temp.GetPixel(i, j);
 
@@ -702,7 +702,7 @@ namespace IMAVD_IMAGEM
                         int newGreen = 0;
                         int newBlue = 0;
 
-                        if(redGamma < 0)
+                        if (redGamma < 0)
                         {
                             newRed = c.R;
                         }
@@ -711,7 +711,7 @@ namespace IMAVD_IMAGEM
                             newRed = (int)Math.Pow(c.R, 1 / redGamma);
                         }
 
-                        if(greenGamma < 0)
+                        if (greenGamma < 0)
                         {
                             newGreen = c.G;
                         }
@@ -720,7 +720,7 @@ namespace IMAVD_IMAGEM
                             newGreen = (int)Math.Pow(c.G, 1 / greenGamma);
                         }
 
-                        if(blueGamma < 0)
+                        if (blueGamma < 0)
                         {
                             newBlue = c.B;
                         }
@@ -742,11 +742,11 @@ namespace IMAVD_IMAGEM
 
         private void brightnessContrastToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(pbox.Image != null)
+            if (pbox.Image != null)
             {
                 addImageToHistory();
 
-                BrightnessContrastWindow brightnessContrastWindow = new BrightnessContrastWindow(this,currentBrightness,currentContrast);
+                BrightnessContrastWindow brightnessContrastWindow = new BrightnessContrastWindow(this, currentBrightness, currentContrast);
                 brightnessContrastWindow.ShowDialog();
 
                 currentBrightness = brightnessContrastWindow.chosenBrightness;
@@ -801,7 +801,7 @@ namespace IMAVD_IMAGEM
                 textWindow.ShowDialog();
 
                 string textForImage = textWindow.textToAdd;
-                 
+
                 Console.WriteLine("TEXTO: " + textForImage);
 
                 if (!string.IsNullOrEmpty(textForImage))
@@ -828,7 +828,7 @@ namespace IMAVD_IMAGEM
 
         private void addImageToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            if(pbox.Image != null)
+            if (pbox.Image != null)
             {
                 addImageToHistory();
 
@@ -866,12 +866,70 @@ namespace IMAVD_IMAGEM
 
         private void redimensionToolStripMenuItem_Click(object sender, EventArgs e)
         {
-            int width = 100;
-            int height = 100;
-            if (pbox.Image != null && pbox.Image.Width != width && pbox.Image.Height != height)
+            if (pbox.Image != null)
             {
                 addImageToHistory();
-                pbox.Image = new Bitmap(pbox.Image, new Size(width, height));
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                ResizeWindow resizeWindow = new ResizeWindow(this, pbox.Image.Width, pbox.Image.Height);
+                resizeWindow.ShowDialog();
+
+                if (resizeWindow.byPercentage)
+                {
+                    //new Size((int)(pbox.Size.Width * resizeCoeff), (int)(pbox.Size.Height * resizeCoeff));
+
+                    pbox.Image = new Bitmap(
+                        pbox.Image,
+                        new Size(
+                            (pbox.Image.Width * resizeWindow.resizePercentageValue) / 100,
+                            (pbox.Image.Height * resizeWindow.resizePercentageValue) / 100
+                            )
+                        );
+                    pbox.Size = new Size(
+                            (pbox.Size.Width * resizeWindow.resizePercentageValue) / 100,
+                            (pbox.Size.Height * resizeWindow.resizePercentageValue) / 100
+                            );
+                }
+                else if (resizeWindow.byAbsolute)
+                {
+                    Console.WriteLine("Widths:");
+                    Console.WriteLine(pbox.Image.Width);
+                    Console.WriteLine(pbox.Size.Width);
+
+                    Console.WriteLine("Heights:");
+                    Console.WriteLine(pbox.Image.Height);
+                    Console.WriteLine(pbox.Size.Height);
+                    pbox.Image = new Bitmap(pbox.Image, new Size(resizeWindow.resizeWidthValue, resizeWindow.resizeHeightValue));
+                    Size newSize = new Size(resizeWindow.resizeWidthValue, resizeWindow.resizeHeightValue);
+                    pbox.Size = newSize;
+                }
+
+
+                /*
+                string textForImage = textWindow.textToAdd;
+
+                Console.WriteLine("TEXTO: " + textForImage);
+
+                if (!string.IsNullOrEmpty(textForImage))
+                {
+                    RectangleF rectf = new RectangleF(temp.Width / 2, temp.Height / 2, temp.Width / 2, temp.Height / 2); //rectf for My Text
+
+                    using (Graphics g = Graphics.FromImage(temp))
+                    {
+                        g.SmoothingMode = SmoothingMode.AntiAlias;
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        StringFormat sf = new StringFormat();
+                        sf.Alignment = StringAlignment.Center;
+                        sf.LineAlignment = StringAlignment.Center;
+                        g.DrawString(textForImage, new System.Drawing.Font("Arial", 20, FontStyle.Regular), Brushes.Black, rectf, sf);
+                        g.Dispose();
+                    }
+
+                    pbox.Image = temp;
+                }*/
+
             }
         }
     }

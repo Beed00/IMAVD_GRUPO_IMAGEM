@@ -38,6 +38,8 @@
             this.resizeHeightNumber = new System.Windows.Forms.NumericUpDown();
             this.label4 = new System.Windows.Forms.Label();
             this.label5 = new System.Windows.Forms.Label();
+            this.resizeBtn = new System.Windows.Forms.Button();
+            this.cancelBtn = new System.Windows.Forms.Button();
             ((System.ComponentModel.ISupportInitialize)(this.resizePercentage)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resizeWidthNumber)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.resizeHeightNumber)).BeginInit();
@@ -50,9 +52,9 @@
             this.resizeByPercentage.Name = "resizeByPercentage";
             this.resizeByPercentage.Size = new System.Drawing.Size(242, 36);
             this.resizeByPercentage.TabIndex = 0;
-            this.resizeByPercentage.TabStop = true;
             this.resizeByPercentage.Text = "By percentage:";
             this.resizeByPercentage.UseVisualStyleBackColor = true;
+            this.resizeByPercentage.CheckedChanged += new System.EventHandler(this.resizeByPercentage_CheckedChanged);
             // 
             // resizeByAbsoluteValue
             // 
@@ -64,14 +66,25 @@
             this.resizeByAbsoluteValue.TabStop = true;
             this.resizeByAbsoluteValue.Text = "By absolute value";
             this.resizeByAbsoluteValue.UseVisualStyleBackColor = true;
+            this.resizeByAbsoluteValue.CheckedChanged += new System.EventHandler(this.resizeByAbsoluteValue_CheckedChanged);
             // 
             // resizePercentage
             // 
             this.resizePercentage.Location = new System.Drawing.Point(390, 73);
+            this.resizePercentage.Maximum = new decimal(new int[] {
+            10000,
+            0,
+            0,
+            0});
             this.resizePercentage.Name = "resizePercentage";
             this.resizePercentage.Size = new System.Drawing.Size(120, 38);
             this.resizePercentage.TabIndex = 2;
             this.resizePercentage.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            this.resizePercentage.Value = new decimal(new int[] {
+            100,
+            0,
+            0,
+            0});
             // 
             // label1
             // 
@@ -103,7 +116,13 @@
             // resizeWidthNumber
             // 
             this.resizeWidthNumber.Location = new System.Drawing.Point(390, 234);
+            this.resizeWidthNumber.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.resizeWidthNumber.Name = "resizeWidthNumber";
+            this.resizeWidthNumber.ReadOnly = true;
             this.resizeWidthNumber.Size = new System.Drawing.Size(120, 38);
             this.resizeWidthNumber.TabIndex = 6;
             this.resizeWidthNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -111,7 +130,13 @@
             // resizeHeightNumber
             // 
             this.resizeHeightNumber.Location = new System.Drawing.Point(390, 292);
+            this.resizeHeightNumber.Maximum = new decimal(new int[] {
+            100000,
+            0,
+            0,
+            0});
             this.resizeHeightNumber.Name = "resizeHeightNumber";
+            this.resizeHeightNumber.ReadOnly = true;
             this.resizeHeightNumber.Size = new System.Drawing.Size(120, 38);
             this.resizeHeightNumber.TabIndex = 7;
             this.resizeHeightNumber.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
@@ -134,11 +159,33 @@
             this.label5.TabIndex = 9;
             this.label5.Text = "px";
             // 
+            // resizeBtn
+            // 
+            this.resizeBtn.Location = new System.Drawing.Point(406, 388);
+            this.resizeBtn.Name = "resizeBtn";
+            this.resizeBtn.Size = new System.Drawing.Size(140, 57);
+            this.resizeBtn.TabIndex = 10;
+            this.resizeBtn.Text = "Resize";
+            this.resizeBtn.UseVisualStyleBackColor = true;
+            this.resizeBtn.Click += new System.EventHandler(this.button1_Click);
+            // 
+            // cancelBtn
+            // 
+            this.cancelBtn.Location = new System.Drawing.Point(568, 388);
+            this.cancelBtn.Name = "cancelBtn";
+            this.cancelBtn.Size = new System.Drawing.Size(140, 57);
+            this.cancelBtn.TabIndex = 11;
+            this.cancelBtn.Text = "Cancel";
+            this.cancelBtn.UseVisualStyleBackColor = true;
+            this.cancelBtn.Click += new System.EventHandler(this.button2_Click);
+            // 
             // ResizeWindow
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(16F, 31F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(730, 408);
+            this.ClientSize = new System.Drawing.Size(764, 515);
+            this.Controls.Add(this.cancelBtn);
+            this.Controls.Add(this.resizeBtn);
             this.Controls.Add(this.label5);
             this.Controls.Add(this.label4);
             this.Controls.Add(this.resizeHeightNumber);
@@ -171,5 +218,7 @@
         private System.Windows.Forms.NumericUpDown resizeHeightNumber;
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label5;
+        private System.Windows.Forms.Button resizeBtn;
+        private System.Windows.Forms.Button cancelBtn;
     }
 }
