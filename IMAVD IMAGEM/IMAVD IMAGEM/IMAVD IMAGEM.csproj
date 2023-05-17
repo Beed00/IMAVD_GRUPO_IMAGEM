@@ -46,6 +46,12 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="BrightnessContrastWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="BrightnessContrastWindow.Designer.cs">
+      <DependentUpon>BrightnessContrastWindow.cs</DependentUpon>
+    </Compile>
     <Compile Include="GammaWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -72,6 +78,15 @@
     </Compile>
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="TextForImageWindow.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="TextForImageWindow.Designer.cs">
+      <DependentUpon>TextForImageWindow.cs</DependentUpon>
+    </Compile>
+    <EmbeddedResource Include="BrightnessContrastWindow.resx">
+      <DependentUpon>BrightnessContrastWindow.cs</DependentUpon>
+    </EmbeddedResource>
     <EmbeddedResource Include="GammaWindow.resx">
       <DependentUpon>GammaWindow.cs</DependentUpon>
     </EmbeddedResource>
@@ -93,6 +108,9 @@
     </Compile>
     <EmbeddedResource Include="RGBPickerWindow.resx">
       <DependentUpon>RGBPickerWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="TextForImageWindow.resx">
+      <DependentUpon>TextForImageWindow.cs</DependentUpon>
     </EmbeddedResource>
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>

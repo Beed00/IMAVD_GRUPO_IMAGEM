@@ -35,9 +35,20 @@ namespace IMAVD_IMAGEM
 
         private void btnOk_Click(object sender, EventArgs e)
         {
-            this.redGamma = float.Parse(txtRedValue.Text);
-            this.greenGamma = float.Parse(txtGreenValue.Text);
-            this.blueGamma = float.Parse(txtBlueValue.Text);
+            if(!string.IsNullOrEmpty(txtRedValue.Text))
+            {
+                this.redGamma = float.Parse(txtRedValue.Text);
+            }
+
+            if (!string.IsNullOrEmpty(txtGreenValue.Text))
+            {
+                this.greenGamma = float.Parse(txtGreenValue.Text);
+            }
+
+            if (!string.IsNullOrEmpty(txtBlueValue.Text))
+            {
+                this.blueGamma = float.Parse(txtBlueValue.Text);
+            }
 
             this.Close();
 

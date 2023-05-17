@@ -2,7 +2,9 @@
 using System.Collections.Generic;
 using System.ComponentModel;
 using System.Data;
+using System.Diagnostics.Contracts;
 using System.Drawing;
+using System.Drawing.Drawing2D;
 using System.Drawing.Imaging;
 using System.IO;
 using System.Linq;
@@ -21,7 +23,7 @@ namespace IMAVD_IMAGEM
 
 
         // Variables
-        Image image;
+        Image backup;
 
         string filePath;
 
@@ -38,10 +40,16 @@ namespace IMAVD_IMAGEM
         private LinkedList<ImageHistory> undoStack = new LinkedList<ImageHistory>();
         private LinkedList<ImageHistory> redoStack = new LinkedList<ImageHistory>();
 
+        int currentBrightness;
+        int currentContrast;
+
         public mainAppWindow()
         {
             InitializeComponent();
+            currentBrightness = 0;
+            currentContrast = 1;
             MouseWheel += MyMouseWheel;
+
         }
 
         private void MyMouseWheel(object sender, MouseEventArgs e)
@@ -114,10 +122,10 @@ namespace IMAVD_IMAGEM
             if (filePath != null)
             {
                 Console.WriteLine("FilePath: " + filePath);
-                image = Image.FromFile(filePath);
+                backup = Image.FromFile(filePath);
 
                 pbox.SizeMode = PictureBoxSizeMode.StretchImage;
-                pbox.Image = image;
+                pbox.Image = backup;
             }
         }
 
@@ -151,7 +159,7 @@ namespace IMAVD_IMAGEM
                 string imageName = info.Name;
                 string imageExtension = info.Extension;
                 string imageLocation = filePath;
-                string imageDimension = "" + image.Width + "x" + image.Height;
+                string imageDimension = "" + backup.Width + "x" + backup.Height;
                 string imageSize = info.Length + " bytes";
                 string imageCreation = info.CreationTime.ToString();
 
@@ -558,93 +566,11 @@ namespace IMAVD_IMAGEM
             redoToolStripMenuItem.Enabled = redoStack.Count > 0;
         }
 
-        private void trackBarBrightness_Scroll(object sender, EventArgs e)
-        {
-            if (pbox.Image != null)
-            {
-                float chosenBrightness = (float)(trackBarBrightness.Value / 255.0);
-                txtBrightness.Text = trackBarBrightness.Value.ToString();
-
-                Bitmap temp = (Bitmap)image;
-
-                Bitmap brightness = new Bitmap(temp.Width, temp.Height);
-
-                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-                {
-                    new float[] {1, 0, 0, 0, 0},
-                    new float[] {0, 1, 0, 0, 0},
-                    new float[] {0, 0, 1, 0, 0},
-                    new float[] {0, 0, 0, 1, 0},
-                    new float[] {chosenBrightness, chosenBrightness, chosenBrightness, 1, 1}
-                });
-
-                using (ImageAttributes attrImage = new ImageAttributes())
-                {
-                    attrImage.SetColorMatrix(clrMatrix);
-
-                    using (Graphics g = Graphics.FromImage(brightness))
-                    {
-                        g.DrawImage(temp, new Rectangle(0, 0,
-                            temp.Width, temp.Height), 0, 0,
-                            temp.Width, temp.Height, GraphicsUnit.Pixel,
-                            attrImage);
-
-                        attrImage.Dispose();
-                        g.Dispose();
-                    }
-                }
-
-                pbox.Image = brightness;
-            }
-        }
-
-        private void trackBarContrast_Scroll(object sender, EventArgs e)
-        {
-            if (pbox.Image != null)
-            {
-                float chosenContrast = 1 + (trackBarContrast.Value * 0.01f);
-                txtContrast.Text = trackBarContrast.Value.ToString();
-
-                Bitmap temp = (Bitmap)image;
-
-                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
-
-                float t = 0.5f * (1.0f - chosenContrast);
-
-                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
-                {
-                    new float[] {chosenContrast, 0, 0, 0, 0},
-                    new float[] {0, chosenContrast, 0, 0, 0},
-                    new float[] {0, 0, chosenContrast, 0, 0},
-                    new float[] {0, 0, 0, 1, 0},
-                    new float[] {t, t, t, 0, 1}
-                });
-
-                using (ImageAttributes attrImage = new ImageAttributes())
-                {
-                    attrImage.SetColorMatrix(clrMatrix);
-
-                    using (Graphics g = Graphics.FromImage(contrast))
-                    {
-                        g.DrawImage(temp, new Rectangle(0, 0,
-                            temp.Width, temp.Height), 0, 0,
-                            temp.Width, temp.Height, GraphicsUnit.Pixel,
-                            attrImage);
-
-                        attrImage.Dispose();
-                        g.Dispose();
-                    }
-                }
-
-                pbox.Image = contrast;
-            }
-        }
-
         private void redToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -681,7 +607,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -718,7 +644,7 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
-                Bitmap temp = (Bitmap)image;
+                Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
 
@@ -755,11 +681,186 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
                 GammaWindow gammaWindow = new GammaWindow(this);
                 gammaWindow.ShowDialog();
-                Console.WriteLine("RED VALUE: " + gammaWindow.redGamma +
-                    " GREEN VALUE: " + gammaWindow.greenGamma +
-                    " BLUE VALUE: " + gammaWindow.blueGamma);
+
+                float redGamma = gammaWindow.redGamma;
+                float greenGamma = gammaWindow.greenGamma;
+                float blueGamma = gammaWindow.blueGamma;
+
+                for(int i = 0; i < temp.Width; i++)
+                {
+                    for(int j = 0; j < temp.Height; j++)
+                    {
+                        Color c = temp.GetPixel(i, j);
+
+                        int newRed = 0;
+                        int newGreen = 0;
+                        int newBlue = 0;
+
+                        if(redGamma < 0)
+                        {
+                            newRed = c.R;
+                        }
+                        else
+                        {
+                            newRed = (int)Math.Pow(c.R, 1 / redGamma);
+                        }
+
+                        if(greenGamma < 0)
+                        {
+                            newGreen = c.G;
+                        }
+                        else
+                        {
+                            newGreen = (int)Math.Pow(c.G, 1 / greenGamma);
+                        }
+
+                        if(blueGamma < 0)
+                        {
+                            newBlue = c.B;
+                        }
+                        else
+                        {
+                            newBlue = (int)Math.Pow(c.B, 1 / blueGamma);
+                        }
+
+                        Color newColor = Color.FromArgb(newRed, newGreen, newBlue);
+
+                        temp.SetPixel(i, j, newColor);
+
+                    }
+                }
+
+                pbox.Image = temp;
+            }
+        }
+
+        private void brightnessContrastToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(pbox.Image != null)
+            {
+                addImageToHistory();
+
+                BrightnessContrastWindow brightnessContrastWindow = new BrightnessContrastWindow(this,currentBrightness,currentContrast);
+                brightnessContrastWindow.ShowDialog();
+
+                currentBrightness = brightnessContrastWindow.chosenBrightness;
+                currentContrast = brightnessContrastWindow.chosenContrast;
+
+                float chosenContrast = 1 + (currentContrast * 0.01f);
+                float chosenBrightness = (float)(currentBrightness / 255.0);
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                Bitmap contrast = new Bitmap(temp.Width, temp.Height);
+
+                ColorMatrix clrMatrix = new ColorMatrix(new float[][]
+                {
+                    new float[] {chosenContrast, 0, 0, 0, 0},
+                    new float[] {0, chosenContrast, 0, 0, 0},
+                    new float[] {0, 0, chosenContrast, 0, 0},
+                    new float[] {0, 0, 0, 1, 0},
+                    new float[] {chosenBrightness, chosenBrightness, chosenBrightness, 0, 1}
+                });
+
+                using (ImageAttributes attrImage = new ImageAttributes())
+                {
+                    attrImage.SetColorMatrix(clrMatrix);
+
+                    using (Graphics g = Graphics.FromImage(contrast))
+                    {
+                        g.DrawImage(temp, new Rectangle(0, 0,
+                            temp.Width, temp.Height), 0, 0,
+                            temp.Width, temp.Height, GraphicsUnit.Pixel,
+                            attrImage);
+
+                        attrImage.Dispose();
+                        g.Dispose();
+                    }
+                }
+
+                pbox.Image = contrast;
+
+            }
+        }
+
+        private void addTextToImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                TextForImageWindow textWindow = new TextForImageWindow(this);
+                textWindow.ShowDialog();
+
+                string textForImage = textWindow.textToAdd;
+                 
+                Console.WriteLine("TEXTO: " + textForImage);
+
+                if (!string.IsNullOrEmpty(textForImage))
+                {
+                    RectangleF rectf = new RectangleF(temp.Width / 2, temp.Height / 2, temp.Width / 2, temp.Height / 2); //rectf for My Text
+
+                    using (Graphics g = Graphics.FromImage(temp))
+                    {
+                        g.SmoothingMode = SmoothingMode.AntiAlias;
+                        g.InterpolationMode = InterpolationMode.HighQualityBicubic;
+                        g.PixelOffsetMode = PixelOffsetMode.HighQuality;
+                        StringFormat sf = new StringFormat();
+                        sf.Alignment = StringAlignment.Center;
+                        sf.LineAlignment = StringAlignment.Center;
+                        g.DrawString(textForImage, new System.Drawing.Font("Arial", 20, FontStyle.Regular), Brushes.Black, rectf, sf);
+                        g.Dispose();
+                    }
+
+                    pbox.Image = temp;
+                }
+
+            }
+        }
+
+        private void addImageToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if(pbox.Image != null)
+            {
+                addImageToHistory();
+
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                int size = -1;
+                OpenFileDialog openFileDialog = new OpenFileDialog();
+                DialogResult result = openFileDialog.ShowDialog(); // Shows the dialog.
+                if (result == DialogResult.OK) // Tests result.
+                {
+                    string file = openFileDialog.FileName;
+                    try
+                    {
+                        string text = File.ReadAllText(file);
+                        size = text.Length;
+                    }
+                    catch (IOException)
+                    {
+                    }
+                }
+
+                filePath = openFileDialog.FileName.Trim();
+                if (filePath != null)
+                {
+                    Image imageToAdd = Image.FromFile(filePath);
+
+                    Graphics g = Graphics.FromImage(temp);
+                    g.DrawImage(imageToAdd, temp.Width / 2, 10);
+
+                    pbox.Image = temp;
+                }
+
             }
         }
 
