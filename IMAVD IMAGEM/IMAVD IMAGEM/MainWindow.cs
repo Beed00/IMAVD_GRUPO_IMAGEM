@@ -932,6 +932,82 @@ namespace IMAVD_IMAGEM
 
             }
         }
+
+        private void divideIntoFourPartsToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                List<Bitmap> dividedImage = new List<Bitmap>();
+
+                var originalImage = temp;
+                
+                var incX = originalImage.Width / 2;
+                var incY = originalImage.Height / 2;
+
+                var startX = 0;
+
+                for (int i = 0; i < 2; i++)
+                {
+                    var startY = 0;
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        var rect = new Rectangle(startX, startY, incX, incY);
+
+                        var clonedImage = originalImage.Clone(rect, originalImage.PixelFormat);
+                            
+                        dividedImage.Add(clonedImage);
+                            
+                        startY += incY;
+                    }
+
+                    startX += incX;
+                }    
+
+                ImageDividedInFour divFourWindow = new ImageDividedInFour(dividedImage);
+                divFourWindow.ShowDialog();
+            }
+        }
+
+        private void divideToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                Bitmap temp = (Bitmap)pbox.Image;
+
+                List<Bitmap> dividedImage = new List<Bitmap>();
+
+                var originalImage = temp;
+
+                var incX = originalImage.Width / 1;
+                var incY = originalImage.Height / 2;
+
+                var startX = 0;
+
+                for (int i = 0; i < 1; i++)
+                {
+                    var startY = 0;
+
+                    for (int j = 0; j < 2; j++)
+                    {
+                        var rect = new Rectangle(startX, startY, incX, incY);
+
+                        var clonedImage = originalImage.Clone(rect, originalImage.PixelFormat);
+
+                        dividedImage.Add(clonedImage);
+
+                        startY += incY;
+                    }
+
+                    startX += incX;
+                }
+
+                Image_DividedInTwo divTwoWindow = new Image_DividedInTwo(dividedImage);
+                divTwoWindow.ShowDialog();
+            }
+        }
     }
 
     public class ImageHistory

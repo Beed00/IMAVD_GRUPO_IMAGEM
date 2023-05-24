@@ -58,6 +58,18 @@
     <Compile Include="GammaWindow.Designer.cs">
       <DependentUpon>GammaWindow.cs</DependentUpon>
     </Compile>
+    <Compile Include="Image DividedInTwo.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="Image DividedInTwo.Designer.cs">
+      <DependentUpon>Image DividedInTwo.cs</DependentUpon>
+    </Compile>
+    <Compile Include="ImageDividedInFour.cs">
+      <SubType>Form</SubType>
+    </Compile>
+    <Compile Include="ImageDividedInFour.Designer.cs">
+      <DependentUpon>ImageDividedInFour.cs</DependentUpon>
+    </Compile>
     <Compile Include="ResizeWindow.cs">
       <SubType>Form</SubType>
     </Compile>
@@ -95,6 +107,12 @@
     </EmbeddedResource>
     <EmbeddedResource Include="GammaWindow.resx">
       <DependentUpon>GammaWindow.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Image DividedInTwo.resx">
+      <DependentUpon>Image DividedInTwo.cs</DependentUpon>
+    </EmbeddedResource>
+    <EmbeddedResource Include="ImageDividedInFour.resx">
+      <DependentUpon>ImageDividedInFour.cs</DependentUpon>
     </EmbeddedResource>
     <EmbeddedResource Include="ImageInformationWindow.resx">
       <DependentUpon>ImageInformationWindow.cs</DependentUpon>
