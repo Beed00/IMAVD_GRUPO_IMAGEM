@@ -570,6 +570,8 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
+
                 Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
@@ -607,6 +609,8 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
+
                 Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
@@ -644,6 +648,8 @@ namespace IMAVD_IMAGEM
         {
             if (pbox.Image != null)
             {
+                addImageToHistory();
+
                 Bitmap temp = (Bitmap)backup;
 
                 Bitmap contrast = new Bitmap(temp.Width, temp.Height);
