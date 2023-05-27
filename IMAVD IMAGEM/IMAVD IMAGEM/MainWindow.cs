@@ -29,7 +29,11 @@ namespace IMAVD_IMAGEM
 
         Color chosenColor;
 
+        Color pickedChromakey;
+
         bool pickColorEvent = false;
+        bool pickChromakeyEvent = false;
+        bool hasChromaBeenPicked = false;
         bool cropImageEventOne = false;
         bool cropImageEventTwo = false;
 
@@ -258,6 +262,53 @@ namespace IMAVD_IMAGEM
             }
         }
 
+        private void removeChosenChromakeyInImage(Color pickChromakey)
+        {
+            try
+            {
+                Boolean IsColorFound = false;
+
+                if (pbox.Image != null)
+                {
+                    Bitmap bitmap = new Bitmap(pbox.Image);
+                    long colorCounter = 0;
+
+                    for (int i = 0; i < pbox.Image.Height; i++)
+                    {
+                        for (int j = 0; j < pbox.Image.Width; j++)
+                        {
+                            Color instanceColor = bitmap.GetPixel(j, i);
+                            if (instanceColor.ToArgb() == pickChromakey.ToArgb())
+                            {
+                                IsColorFound = true;
+                                colorCounter = colorCounter + 1;
+                            }
+                        }
+                    }
+
+                    if (IsColorFound == true)
+                    {
+                        bitmap.MakeTransparent(pickChromakey);
+                        pbox.Image = bitmap;
+                        MessageBox.Show("Chromakey has been found. Number of pixels removed of this chromakey color in the image is: " + colorCounter + " px");
+                    }
+
+                    if (IsColorFound == false)
+                    {
+                        MessageBox.Show("Picked chromakey was not found.");
+                    }
+                }
+                else
+                {
+                    MessageBox.Show("Image has not yet been loaded.");
+                }
+            }
+            catch (Exception exc)
+            {
+                MessageBox.Show(exc.Message);
+            }
+        }
+
         private void pickColorToolStripMenuItem_Click(object sender, EventArgs e)
         {
             if (pbox.Image != null)
@@ -296,7 +347,7 @@ namespace IMAVD_IMAGEM
                 cropImageEventTwo = true;
             }
 
-            if (pickColorEvent)
+            if (pickColorEvent || pickChromakeyEvent)
             {
                 MouseEventArgs mouse = e as MouseEventArgs;
                 Bitmap b = ((Bitmap)pbox.Image);
@@ -304,9 +355,18 @@ namespace IMAVD_IMAGEM
                 int y = mouse.Y * b.Height / pbox.ClientSize.Height;
                 Color pickedColor = b.GetPixel(x, y);
 
-                pickColorEvent = false;
+                if (pickColorEvent)
+                {
+                    pickColorEvent = false;
+                    detectChosenColorInImage(pickedColor);
+                }
 
-                detectChosenColorInImage(pickedColor);
+                if (pickChromakeyEvent)
+                {
+                    pickChromakeyEvent = false;
+                    pickedChromakey = pickedColor;
+                    MessageBox.Show("Chromakey has been picked.");
+                }
             }
         }
 
@@ -1012,6 +1072,40 @@ namespace IMAVD_IMAGEM
 
                 Image_DividedInTwo divTwoWindow = new Image_DividedInTwo(dividedImage);
                 divTwoWindow.ShowDialog();
+            }
+        }
+
+        private void pickChromakeyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null)
+            {
+                hasChromaBeenPicked = true;
+                pickChromakeyEvent = true;
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
+            }
+        }
+
+        private void removeChromakeyToolStripMenuItem_Click(object sender, EventArgs e)
+        {
+            if (pbox.Image != null) 
+            { 
+                addImageToHistory();
+
+                if (hasChromaBeenPicked)
+                {
+                    removeChosenChromakeyInImage(pickedChromakey);
+                }
+                else
+                {
+                    MessageBox.Show("Chromakey has not yet been picked.");
+                }
+            }
+            else
+            {
+                MessageBox.Show("Image has not yet been loaded.");
             }
         }
     }
